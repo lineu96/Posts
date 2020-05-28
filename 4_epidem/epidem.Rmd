@@ -1,0 +1,111 @@
+---
+output:
+  html_document:                    
+    toc: true                       
+    toc_depth: 3                    
+    toc_float:                      
+      collapsed: true
+    #  smooth_scroll: true
+    #number_sections: true           
+    theme: flatly
+    #spacelab
+    #default,cerulean,journal,flatly,readable,spacelab,
+    #united,cosmo,lumen,paper,sandstone,simplex,yeti
+    
+    highlight: espresso
+    #default, tango, pygments, kate, monochrome, espresso, zenburn, haddock, and textmate
+    #css: styles.css                
+    fig_width: 7                    
+    fig_height: 6                   
+    fig_caption: true               
+    fig_align: 'center'
+#    code_folding: hide              
+#    keep_md: true                   
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = FALSE)
+```
+
+---
+
+<center>
+<font size="6"> 
+<p align=”center”> <b> Seminários PPGInf </b> </center>
+</font>
+</center>
+
+---
+
+# COVID-19 – Conceitos de epidemiologia
+
+<font size="4"> 
+<p align=”center”> [Lineu Alberto Cavazani de Freitas](https://lineu96.github.io/st/) </center>
+</font> 
+
+---
+
+Resenha do seminário ministrado no dia 25/05/2020 no [Programa de Pós Graduação em Informática da UFPR](http://www.prppg.ufpr.br/ppginformatica/?lang=pb) por [Bernardo Montesanti Machado de Almeida](https://www.linkedin.com/in/bernardo-montesanti-machado-de-almeida-a2891390) (médico infectologista da Unidade de Vigilância em Saúde do CHC/UFPR) e [Wagner Hugo Bonat](http://leg.ufpr.br/~wagner/) (professor do Departamento de Estatística da UFPR)
+
+---
+
+No seminário foi apresentado o conceito de taxa de reprodução, denotada por Rt que estima a disseminação de uma doença infectocontagiosa. Trata-se do número esperado de transmissões que devem ocorrer a partir de um caso. Dito isso, existem 3 possíveis resultados: $R_t = 1$, isto é, um infectado transmite para apenas uma pessoa, representa o cenário de equilíbrio endêmico. $R_t < 1$, trata-se da chamada supressão endêmica. E, por fim, $R_tRt > 1$ representa o cenário de ciclo epidêmico, no qual um infectado transmite para mais de um indivíduo o que gera a tão falada curva exponencial de casos. O ideal é atingir o cenário de supressão pois este indica queda progressiva na incidência considerando que sejam mantidas as condições daquele momento.
+
+---
+
+Contudo vale ressaltar que os valores de $R$ são sensíveis à dinâmica da doença e a fatores como localidade e clima. Como exemplo de ilustração, o doutor Bernardo citou o impacto do fator climático na pandemia de H1N1, em 2009, que fez com que a taxa de reprodução fosse superior a 2 no Paraná enquanto que a taxa era consideravelmente menor no restante dos estados brasileiros com clima mais quente.
+
+---
+
+Na atual pandemia do novo coronavírus, a taxa de reprodução varia entre 2 e 3, e é consideravelmente mais alta do que outras pandemias históricas como H1N1, Ebola e gripe espanhola.
+
+---
+
+Tratando mais a respeito do Corona vírus: a COVID-19 é uma doença causada pelo coronavírus SARS-CoV-2, descoberto em 31/12/19 após casos registrados na China. De acordo com a Organização Mundial de Saúde (OMS), cerca de 80% dos infectados podem ser assintomáticos e cerca de 20% podem requerer atendimento hospitalar por apresentarem dificuldade respiratória. 
+
+---
+
+Os sintomas da COVID-19 podem variar de um simples resfriado até uma pneumonia severa. A transmissão acontece por meio de toque (na pessoa ou em superfície contaminada), gotículas de saliva, espirro, tosse, catarro, etc. O diagnóstico é feito através de exames laboratoriais.
+Na prática, trata-se de um vírus com letalidade baixa mas altamente contagioso e que, até o momento, não há vacina. Portanto, caso a disseminação não seja devidamente controlada, é uma doença capaz de levar sistemas de saúde inteiros ao colapso como ocorreu em diversos países do mundo. Todavia, devido à variedade de sintomas, controlar a cadeia de transmissão se torna uma tarefa difícil considerando que boa parte dos casos são assintomáticos, diferente de doenças conhecidas como Ebola, por exemplo, em que os sintomas são tão mais violentos que se torna uma tarefa fácil identificar o indivíduo contaminado e isolá-lo, acabando com a cadeia de transmissão que seria gerada por esse indivíduo.
+
+---
+
+Por esta razão justifica-se a estratégia de distanciamento social para conter a disseminação da doença, pela dificuldade de isolar apenas aqueles infectados dado que muitos casos são silenciosos e a taxa de reprodução é alta.
+
+---
+
+Por mais que em termos percentuais não seja uma doença com alto índice de casos graves e letalidade, a taxa de reprodução é a maior preocupação pois 20% de um número altíssimo de contaminados que terão sintomas graves, necessitarão de atendimento intensivo congestionando o sistema de saúde de tal forma que não haja leitos o suficiente para lidar com os casos graves de coronavírus e também para casos de outras doenças e circunstâncias que levem o indivíduo a necessitar de terapia intensiva; deste modo fazendo que a letalidade de todas as doenças que necessitam terapia intensiva aumente, e não apenas dos casos de COVID-19.
+
+---
+
+Outro fato que gera preocupação é o efeito que os cenários divulgados causam na população ao observar-se valores de taxas de contágio e resultados de modelos que apontam para o cenário de situação sob controle, pois estes resultados geram um afrouxamento das medidas de isolamento (atualmente nossa única medida protetiva na ausência de uma vacina) e causam a elevação das contaminações. Deste modo cria-se um ciclo vicioso, no qual as análises mostram que a situação dá indícios de estar sob controle, afrouxam-se as medidas restritivas, como resultado do afrouxamento a contaminação aumenta, o que nos obriga a retomar as medidas de isolamento e assim por diante.
+
+---
+
+Outro assunto que tem sido particularmente tratado é o termo imunidade de rebanho. A ideia consiste em imunizar boa parte da população de modo que os que não foram imunizados estejam protegidos. O problema é que com a ausência de uma vacina, este tipo de imunização se daria pelo contágio (a pessoa contaminada cria anticorpos e não contamina mais, está imune). Assim, imaginemos um cenário hipotético: digamos que para atingir imunidade de rebanho precisaríamos de, sendo otimista, 2/3 da população imunizada. Considerando que a população brasileira atualmente é aproximadamente 210 milhões, necessitaríamos de 138 milhões de pessoas (2/3) contaminadas. Contudo, destas 138 milhões,  por volta de 27 milhões de pessoas necessitariam de atendimento intensivo devido à sintomas graves (20% dos infectados, como indica a OMS). Atualmente a letalidade no Brasil relacionada ao coronavírus está em torno de 6%, deste modo, considerando este cenário, haveriam 8 milhões de óbitos. Nota-se que é um cenário completamente inviável.
+
+---
+
+<td>
+    <a href="https://lineu96.github.io/st/" target="_blank" title="Lineu Alberto Cavazani de Freitas">Lineu Alberto Cavazani de Freitas</a> <br>
+     Bacharel em Estatística <br>
+     Mestrando - PPG Informática <br>
+     Universidade Federal do Paraná<br>
+     </td>
+</td>
+
+---
+
+<center>
+<table><tr>
+<td> <img src="img/ufpr.jpg" alt="Drawing" style="width: 200px;"/> </td>
+<td> <img src="img/LogoB.png" alt="Drawing" style="width: 50px;"/> </td>
+<td> <img src="img/exatas.png" alt="Drawing" style="width: 150px;"/> </td>
+<td> <img src="img/LogoB.png" alt="Drawing" style="width: 50px;"/> </td>
+<td> <img src= "img/dsbd.png" alt="Drawing" style="width: 240px;"/> </td>
+</tr></table>
+</center>
+
+---
+
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>
