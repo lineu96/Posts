@@ -49,7 +49,7 @@ Resenha do seminário ministrado no dia 25/05/2020 no [Programa de Pós Graduaç
 
 ---
 
-No seminário foi apresentado o conceito de taxa de reprodução, denotada por Rt que estima a disseminação de uma doença infectocontagiosa. Trata-se do número esperado de transmissões que devem ocorrer a partir de um caso. Dito isso, existem 3 possíveis resultados: $R_t = 1$, isto é, um infectado transmite para apenas uma pessoa, representa o cenário de equilíbrio endêmico. $R_t < 1$, trata-se da chamada supressão endêmica. E, por fim, $R_tRt > 1$ representa o cenário de ciclo epidêmico, no qual um infectado transmite para mais de um indivíduo o que gera a tão falada curva exponencial de casos. O ideal é atingir o cenário de supressão pois este indica queda progressiva na incidência considerando que sejam mantidas as condições daquele momento.
+No seminário foi apresentado o conceito de taxa de reprodução, denotada por $R_t$ que estima a disseminação de uma doença infectocontagiosa. Trata-se do número esperado de transmissões que devem ocorrer a partir de um caso. Dito isso, existem 3 possíveis resultados: $R_t = 1$, isto é, um infectado transmite para apenas uma pessoa, representa o cenário de equilíbrio endêmico. $R_t < 1$, trata-se da chamada supressão endêmica. E, por fim, $R_t > 1$ representa o cenário de ciclo epidêmico, no qual um infectado transmite para mais de um indivíduo o que gera a tão falada curva exponencial de casos. O ideal é atingir o cenário de supressão pois este indica queda progressiva na incidência considerando que sejam mantidas as condições daquele momento.
 
 ---
 
