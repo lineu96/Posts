@@ -1,0 +1,96 @@
+---
+output:
+  html_document: 
+    type: inverse
+    # Sumário
+    toc: true 
+    toc_depth: 3 # Profundidade do sumário                   
+    toc_float:                      
+      collapsed: true # Sumário flutuante (lateral)
+    
+#    number_sections: true # Seções numeradas
+    
+    # Aparência
+    theme: flatly
+    # Temas possíveis:
+    # default,cerulean,journal,flatly,readable,spacelab,
+    # united,cosmo,lumen,paper,sandstone,simplex,yeti
+    
+    # Códigos R no texto
+#    highlight: espresso
+    # Temas possíveis:
+    # default, tango, pygments, kate, monochrome, 
+    # espresso, zenburn, haddock, and textmate
+    #css: styles.css                
+    
+    # Configurações globais de imagens
+    fig_width: 7  # Largura                  
+    fig_height: 6 # Altura                  
+    fig_caption: true # Legenda              
+    fig_align: 'center' # Posição
+
+    # Esconder o código
+#    code_folding: hide 
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+---
+
+<center>
+<font size="6"> 
+<p align=”center”> <b> PET Convida 3ª Edição  </b> </center>
+</font>
+</center>
+
+---
+
+<center>
+<font size="5"> 
+<p align=”center”> <b> Testes de Hipótese em Modelos Multivariados de Covariância Linear Generalizada (McGLM)  </b> </center>
+</font>
+</center>
+
+---
+
+<font size="4"> 
+<p align=”center”> [Lineu Alberto Cavazani de Freitas](https://lineu96.github.io/st/) </center>
+</font> 
+
+---
+
+# Palestra
+
+No dia 20/11/2020 às 18h, tive o prazer de ter sido o convidado para a terceira edição do **PET Convida** oferecido pelo [PET-Estatística UFPR](https://pet.leg.ufpr.br/) para falar sobre o que venho produzindo no meu mestrado.
+
+Foi uma conversa bastante informal, focada na didática (para atender todos os públicos) sobre temas como: etapas do processo de análise de um conjunto de dados, modelos de regressão, McGLM (classe de modelos de regressão sobre a qual eu trabalho) e testes de hipótese sobre os parâmetros dos modelos desta classe.
+
+A palestra teve transmissão ao vivo no [canal do PET Estatística UFPR no YouTube](https://www.youtube.com/channel/UCPFo2Z9zZeB-Xgg8sm9sBKg).
+
+---
+
+Apresentação disponível [aqui](https://github.com/lineu96/pet_convida/blob/master/thmcglm_20201120/slides.pdf).
+
+---
+
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/FSJFQzRH2j8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+---
+
+<center>
+<table><tr>
+<td> <img src="img/dsbd.png" alt="Drawing" style="width: 250px;"/> </td>
+<td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </td>
+<td> <img src="img/ufpr.jpg" alt="Drawing" style="width: 200px;"/> </td>
+<td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </td>
+<td> <img src="img/logo.png" alt="Drawing" style="width: 200px;"/> </td>
+</tr></table>
+</center>
+
+---
+
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>
