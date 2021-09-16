@@ -1,0 +1,86 @@
+---
+output:
+  html_document: 
+    type: inverse
+    # Sumário
+    toc: true   
+    toc_depth: 3 # Profundidade do sumário                   
+#    toc_float:                      
+#      collapsed: true # Sumário flutuante (lateral)
+    
+#    number_sections: true # Seções numeradas
+    
+    # Aparência
+    theme: flatly
+    # Temas possíveis:
+    # default,cerulean,journal,flatly,readable,spacelab,
+    # united,cosmo,lumen,paper,sandstone,simplex,yeti
+    
+    # Códigos R no texto
+#    highlight: espresso
+    # Temas possíveis:
+    # default, tango, pygments, kate, monochrome, 
+    # espresso, zenburn, haddock, and textmate
+    #css: styles.css                
+    
+    # Configurações globais de imagens
+    fig_width: 7  # Largura                  
+    fig_height: 6 # Altura                  
+    fig_caption: true # Legenda              
+    fig_align: 'center' # Posição
+
+    # Esconder o código
+#    code_folding: hide 
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+---
+
+<center>
+<font size="6"> 
+<p align=”center”> <b> Semana acadêmica do curso de Estatística UFPR  </b> </center>
+</font>
+</center>
+
+---
+
+<center>
+<font size="5"> 
+<p align=”center”> <b> Mesa redonda: nova grade do curso de Estatística da UFPR  </b> </center>
+</font>
+</center>
+
+---
+
+<font size="4"> 
+<p align=”center”> [Lineu Alberto Cavazani de Freitas](https://lineu96.github.io/st/) </center>
+</font> 
+
+---
+
+
+No dia 14/09 estive novamente envolvido nas atividades da semana acadêmica do curso de Estatística da UFPR 2021. Desta vez participei da discussão a respeito da reformulação da grade curricular do curso de graduação do ponto de vista de um ex aluno do curso.
+
+---
+
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/fMJeVjKs3sg" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+---
+
+<center>
+<table><tr>
+<td> <img src="img/dsbd.png" alt="Drawing" style="width: 250px;"/> </td>
+<td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </td>
+<td> <img src="img/ufpr.jpg" alt="Drawing" style="width: 200px;"/> </td>
+<td> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </td>
+<td> <img src="img/logo.png" alt="Drawing" style="width: 200px;"/> </td>
+</tr></table>
+</center>
+
+
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>
