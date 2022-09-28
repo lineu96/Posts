@@ -1,0 +1,83 @@
+---
+title: Defesa de Mestrado PPGInf UFPR
+subtitle: Testes Wald para avaliação de parâmetros de regressão e dispersão em modelos multivariados de covariância linear generalizada
+author: Lineu Alberto Cavazani de Freitas
+output:
+  html_document: 
+    type: inverse
+    # Sumário
+    #toc: true   
+    toc_depth: 3 # Profundidade do sumário                   
+#    toc_float:                      
+#      collapsed: true # Sumário flutuante (lateral)
+    
+#    number_sections: true # Seções numeradas
+    
+    # Aparência
+    theme: cosmo
+    # Temas possíveis:
+    # default,cerulean,journal,flatly,readable,spacelab,
+    # united,cosmo,lumen,paper,sandstone,simplex,yeti
+    
+    # Códigos R no texto
+#    highlight: espresso
+    # Temas possíveis:
+    # default, tango, pygments, kate, monochrome, 
+    # espresso, zenburn, haddock, and textmate
+    #css: styles.css                
+    
+    # Configurações globais de imagens
+    fig_width: 7  # Largura                  
+    fig_height: 6 # Altura                  
+    fig_caption: true # Legenda              
+    fig_align: 'center' # Posição
+
+    # Esconder o código
+#    code_folding: hide 
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+---
+
+No dia 12/08/2022 foi realizada minha defesa de mestrado no Programa de Pós Graduação em Informática na UFPR.
+
+Nos anos de mestrado estive inserido na área de concentração de Ciência da Computação, linha de pesquisa Tecnologia da Informação e grupo de pesquisa Data Science & Big Data onde trabalhei com métodos estatísticos em ciência de dados.
+
+Minha dissertação é a respeito da construção de testes de hipóteses para modelos de regressão multivariados para dados não gaussianos, tema que trabalho desde a graduação em Estatística também feita na UFPR. Ambos os trabalhos foram conduzidos sob orientação do professor Wagner Bonat.
+
+Encerramos o mestrado com 2 artigos científicos submetidos, uma biblioteca R já disponível no CRAN e algumas participações em trabalhos paralelos nos quais prestei algum tipo de assessoria.
+
+Data da defesa: 12/08/2022
+
+Título da dissertação: Testes Wald para avaliação de parâmetros de regressão e dispersão em modelos multivariados de covariância linear generalizada.
+
+Orientador: [Prof. Wagner Hugo Bonat](http://www.leg.ufpr.br/~wagner/) (DEST/PPGInf UFPR)
+
+Banca:
+
+ - [Prof. Daniel Furtado Ferreira](https://des.ufla.br/~danielff/) (DES UFLA)
+
+ - [Prof. Paulo Ricardo Lisboa de Almeida](http://prlalmeida.com.br/) (DINF/PPGInf UFPR)
+
+---
+
+Texto disponível [aqui](https://www.acervodigital.ufpr.br/handle/1884/78069).
+
+Apresentação disponível [aqui](https://github.com/lineu96/msc/raw/master/6_apresentacao/defesa-lineu.pdf).
+
+Vídeo disponível [aqui](https://youtu.be/sxu-rD72O88)
+
+Pacote disponível [aqui](https://cran.r-project.org/web/packages/htmcglm/index.html)
+
+---
+
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/sxu-rD72O88?start=360" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+---
+
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>

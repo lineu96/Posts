@@ -1,0 +1,61 @@
+---
+title: Posts
+output:
+  html_document:                    # Classe de documento.
+    #toc: true                       # Exibir sum?rio.
+    #toc_depth: 2                    # Profundidade do sum?rio.
+    #toc_float:                      # Sum?rio flutuante na borda.
+      #collapsed: true
+      #smooth_scroll: true
+    #number_sections: true           # Se??es numeradas.
+    theme: cosmo
+    #default,cerulean,journal,flatly,readable,spacelab,
+    #united,cosmo,lumen,paper,sandstone,simplex,yeti
+    
+    highlight: espresso
+    #default, tango, pygments, kate, monochrome, espresso, zenburn, haddock, and textmate
+    #css: styles.css                 # Caminho para arquivo CSS.
+    fig_width: 7                    # Lagura das figuras.
+    fig_height: 6                   # Altura das figuras.
+    fig_caption: true               # Exibica??o de legenda.
+    fig_align: 'center'
+#    code_folding: hide              # Esconder/exibir bloco de c?digo.
+    keep_md: false                   # Manter o arquivo md.
+    #template: quarterly_report.html # Caminho para o template.  
+
+---
+
+
+<font size="4"> 
+<p align=”center”> [Lineu Alberto Cavazani de Freitas](https://lineu96.github.io) </center>
+</font> 
+
+---
+
+Ao longo destes anos de estudo e carreira, eventualmente produzi alguns materiais de temas que tive a necessidade de estudar ou mesmo temas que achei interessantes. Esta página é uma tentativa de organizar e disponibilizar alguns destes materiais.
+
+---
+
+ - 12/08/2022: [Defesa de dissertação de mestrado](10-defesa-msc.html)
+
+ - 23/03/2022: [Análise exploratória do perfil da turma MEPC22](9-mepc2022.html)
+
+ - 31/08/2021: [Exame de qualificação de mestrado](8-quali.html)
+
+ - 24/05/2021: [Experiências do curso de graduação em Estatística](7-aula-inaugural.html)
+ 
+ - 18/03/2021: [Análise exploratória do perfil da turma MEPC21](6-mepc2021.html)
+ 
+ - 27/05/2020: [Relatórios HTML utilizando Rmarkdown](5-rmarkdown.html)
+ 
+ - 26/05/2020: [COVID-19: Conceitos de epidemiologia](4-epidem.html)
+ 
+ - 11/12/2019: [Algoritmos e Lógica de Programação](3-logprog.html)
+ 
+ - 08/06/2019: [Primeiros Passos com `tidyr` e `dplyr`](2-tidyr-dplyr.html)
+ 
+ - 18/03/2019: [Primeiros Passos com `ggplot2`](1-ggplot2.html)
+ 
+---
+
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>

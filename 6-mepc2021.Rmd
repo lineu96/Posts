@@ -1,0 +1,79 @@
+---
+title: Métodos Estatísticos em Pesquisa Científica
+subtitle: Análise exploratória do perfil da turma
+author: Lineu Alberto Cavazani de Freitas
+output:
+  html_document: 
+    type: inverse
+    # Sumário
+    #toc: true 
+    toc_depth: 3 # Profundidade do sumário                   
+    toc_float:                      
+      collapsed: true # Sumário flutuante (lateral)
+    
+#    number_sections: true # Seções numeradas
+    
+    # Aparência
+    theme: cosmo
+    # Temas possíveis:
+    # default,cerulean,journal,flatly,readable,spacelab,
+    # united,cosmo,lumen,paper,sandstone,simplex,yeti
+    
+    # Códigos R no texto
+#    highlight: espresso
+    # Temas possíveis:
+    # default, tango, pygments, kate, monochrome, 
+    # espresso, zenburn, haddock, and textmate
+    #css: styles.css                
+    
+    # Configurações globais de imagens
+    fig_width: 7  # Largura                  
+    fig_height: 6 # Altura                  
+    fig_caption: true # Legenda              
+    fig_align: 'center' # Posição
+
+    # Esconder o código
+#    code_folding: hide 
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+---
+
+# Aula
+
+Um dos requisitos para obtenção do título de mestre no Programa de Pós Graduação em Informática da UFPR para bolsistas é o cumprimento da prática em docência.
+
+No primeiro semestre de 2021, em meio à pandemia de covid-19, iniciei tal tarefa como um dos monitores de pós graduação da disciplina transversal de [Métodos Estatísticos em Pesquisa Científica](http://www.prppg.ufpr.br/site/blog/2021/02/19/metodos-estatisticos-em-pesquisa-cientifica-2021-1-remota/) ofertada pela Pró-Reitoria de Pesquisa e Pós Graduação ([PRPPG](http://www.prppg.ufpr.br/site/)) em parceria com o Departamento de Estatística da UFPR ([DEST](http://www.est.ufpr.br/departamento.html)).
+
+---
+
+Minha primeira atividade na disciplina foi preparar um questionário sobre o perfil dos alunos matriculados, coletar, tratar e realizar uma análise exploratória dos dados obtidos com os seguintes objetivos:
+
+1. Discutir com a turma alguns detalhes a respeito de instrumentos de coletas de dados e uso de questionários.
+
+2. Tratamento dos dados.
+
+3. Iniciar uma conversa a respeito de análise exploratória de dados com um enfoque mais prático, com o objetivo de mostrar o potencial das técnicas simples de análise descritiva para fins de extração de informações sobre os dados.
+
+No dia 17/03/2021, tive a oportunidade de apresentar este material na disciplina. Foi uma experiência bastante interessante considerando a variedade do público e o tamanho da turma, tínhamos naquele momento mais de 300 inscritos na disciplina.
+
+A aula teve transmissão ao vivo e todas as aulas da disciplina estão disponíveis no [canal da PRPPG YouTube](https://www.youtube.com/playlist?list=PLId4vyPr4QR3phOzEPh5Ism_O76Y9O_QU).
+
+---
+
+A página criada para esta aula pode ser acessada pelo link: https://lineu96.github.io/mepc2021/.
+
+E o vídeo acessado pelo link: https://www.youtube.com/embed/54ZPq835RxA.
+
+---
+
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/54ZPq835RxA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+---
+
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>

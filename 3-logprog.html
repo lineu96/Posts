@@ -1,0 +1,1397 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Lineu Alberto Cavazani de Freitas" />
+
+
+<title>Algoritmos e Lógica de Programação</title>
+
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    background-color: #2a211c;
+    color: #bdae9d;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #bdae9d;  padding-left: 4px; }
+div.sourceCode
+  { color: #bdae9d; background-color: #2a211c; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ffff00; } /* Alert */
+code span.an { color: #0066ff; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #44aa43; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #43a8ed; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #049b0a; } /* Char */
+code span.cn { } /* Constant */
+code span.co { color: #0066ff; font-weight: bold; font-style: italic; } /* Comment */
+code span.do { color: #0066ff; font-style: italic; } /* Documentation */
+code span.dt { text-decoration: underline; } /* DataType */
+code span.dv { color: #44aa43; } /* DecVal */
+code span.er { color: #ffff00; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #44aa43; } /* Float */
+code span.fu { color: #ff9358; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #0066ff; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #43a8ed; font-weight: bold; } /* Keyword */
+code span.op { } /* Operator */
+code span.pp { font-weight: bold; } /* Preprocessor */
+code span.sc { color: #049b0a; } /* SpecialChar */
+code span.ss { color: #049b0a; } /* SpecialString */
+code span.st { color: #049b0a; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #049b0a; } /* VerbatimString */
+code span.wa { color: #ffff00; font-weight: bold; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Posts</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://lineu96.github.io">
+    <span class="fa fa-user"></span>
+     
+    Lineu A.C.F
+  </a>
+</li>
+<li>
+  <a href="https://github.com/lineu96">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Algoritmos e Lógica de Programação</h1>
+<h4 class="author">Lineu Alberto Cavazani de Freitas</h4>
+
+</div>
+
+
+<hr />
+<div id="introdução" class="section level1">
+<h1>Introdução</h1>
+<p>Através da programação é possível automatizar processos, isto é,
+tarefas que seriam feitas manualmente por seres humanos passam a ser
+realizadas total ou parcialmente pelo computador. Isto gera um ganho
+enorme de tempo e, caso tudo seja bem estruturado, não há perda de
+qualidade; em muitos casos há até ganho de qualidade pois as falhas
+humanas não serão mais inerentes ao processo.</p>
+<p>A sequência de passos a ser seguida para realização de uma tarefa é
+chamada de <strong>algoritmo</strong>. Para que o computador realize
+esta sequência de passos é necessário que isso esteja especificado de
+uma forma que a máquina entenda, isto é, através de um
+<strong>programa</strong> escrito em uma <strong>linguagem de
+programação</strong>.</p>
+<p>Portanto, um programa de computador é um algoritmo escrito em uma
+linguagem de programação. Existem diversas linguagens, como Java,
+Python, C, PHP, dentre outras. Cada uma com suas peculiridades, isto é,
+em cada linguagem a forma que se escreve é diferente.</p>
+<p>Contudo, as estruturas existentes nas linguagens são as mesmas e, por
+este motivo, é interessante compreender bem estas estruturas de forma
+genérica para que seja mais simples generalizá-las para diferentes
+linguagens de programação.</p>
+<p><strong>Entenda: é mais fácil você aprender a lógica (que é geral e
+genérica) antes da linguagem (que é única e segue padrões
+próprios).</strong></p>
+<p>Existem formas de se representar algoritmos fora de uma linguagem de
+programação. As principais são: a <strong>descrição narrativa</strong>,
+o <strong>fluxograma</strong> e o <strong>pseudocódigo</strong>. A mais
+interessante das 3 é o <strong>pseudocódigo</strong>, também chamado de
+<strong>portugol</strong> ou <strong>português estruturado</strong>. É a
+mais próxima de uma linguagem de programação real e, por este motivo, a
+mais simples de “traduzir” para uma linguagem.</p>
+<p>Sendo assim, neste post a ideia é apresentar as principais estruturas
+para que seja possível compreender a lógica das linguagens de
+programação e escrever um algoritmo em pseudocódigo.</p>
+<hr />
+<center>
+<img src="img/fluxo.jpg" width=250>
+</center>
+<hr />
+</div>
+<div id="visualg" class="section level1">
+<h1>Visualg</h1>
+<p>Como já mencionado, a representação de algoritmos através de
+pseudocódigo é uma das formas mais eficientes de se compreender a lógica
+de programação. Em tempos remotos, o estudo de algoritmos por
+pseudocódigo era feito com papel e caneta. Atualmente existem
+ferramentas que auxiliam no aprendizado de lógica de programação e
+algoritmos, isto é, aplicativos que interpretam e executam um algoritmo
+escrito em pseudocódigo. Desta forma é mais simples verificar o
+funcionamento do código e identificar erros. Uma interessante ferramenta
+para este propóstito é o <a href="http://visualg3.com.br/">visualg</a>.
+Segundo a descrição dos próprios autores:</p>
+<p><em>“O Visualg é um programa que permite criar, editar, interpretar e
+que também executa os algoritmos em português estruturado (portugol)
+como se fosse um “programa” normal de computador.”</em></p>
+<p>Eis o aspecto do aplicativo:</p>
+<center>
+<img src="img/visualg.png" width=1000>
+</center>
+<p><span class="math display">\[\\\]</span></p>
+<p>A estrutura básica de um algoritmo no <strong>visualg</strong> tem a
+seguinte forma:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>Algoritmo <span class="st">&quot;Nome do algoritmo&quot;</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>Var</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>Inicio</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>Fimalgoritmo</span></code></pre></div>
+<p>Inicia-se com <code>Algoritmo</code> e declara-se o nome do
+algoritmo. Na seção <code>Var</code> são declaradas as variáveis (nomes
+e tipos) que serão usadas no código. E entre <code>Inicio</code> e
+<code>Fimalgoritmo</code> são escritos os comandos.</p>
+<p>O <strong>visualg</strong> é facilmente instalado em qualquer sistema
+operacional e recomendo fortemente àqueles que desejam aprender ou mesmo
+revisar algoritmos e lógica de programação.</p>
+<hr />
+</div>
+<div id="comandos-de-saída" class="section level1">
+<h1>Comandos de saída</h1>
+<p>O visualg tem 2 comandos de saída, isto é, comandos que vão retornar
+algo ao usuário. São eles: <code>Escreva</code> e <code>Escreval</code>.
+A diferença entre eles é a que o Escreval quebra uma linha antes de
+mostrar em tela o que foi solicitado. No visualg basta escrever:
+<code>Escreva("Qualquer coisa")</code> ou
+<code>Escreval("Qualquer coisa")</code>, executar, e a mensagem
+“Qualquer coisa” será printada em tela.</p>
+<p>A estrutura do código seria algo como:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>Algoritmo <span class="st">&quot;Escreva&quot;</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>Var</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>Inicio</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>   <span class="fu">Escreval</span>(<span class="st">&quot;Qualquer coisa&quot;</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>Fimalgoritmo</span></code></pre></div>
+<p>Note como o <code>Escreval("Qualquer coisa")</code> está a frente,
+isto é, há um espaço antes. Isto é usualmente feito para deixar o código
+mais organizado, de forma que saibamos que o <code>Escreval</code> está
+<strong>dentro</strong> do <code>Inicio</code> e
+<code>Fimalgoritmo</code>, esta técnica é chamada
+<strong>indentação</strong> e não é obrigatória, contudo, códigos
+indentados são bem mais atrativos.</p>
+<p>Portanto, indentar é afastar o texto da margem. Em linguagens de
+programação consiste em escrever o código afastado por espaço da margem
+de forma que a escrita fique disposta hierarquicamente, para facilitar a
+visualização e percepção do programa.</p>
+<hr />
+</div>
+<div id="variáveis" class="section level1">
+<h1>Variáveis</h1>
+<p>Uma <strong>variável</strong> é nada mais que uma entidade em que
+algo é armazenado, em geral variáveis são utilizadas para armazenar
+informações que serão recorrentemente usadas no código. No visualg há a
+seção <code>Var</code>, na qual deve-se declarar o identificador (nome)
+da variável e seu tipo. Algumas convenções para declarar nomes para
+variáveis são:</p>
+<ol style="list-style-type: decimal">
+<li>Deve sempre iniciar com uma letra. Após a letra números são
+permitidos.</li>
+<li>Símbolos costumam não ser permitidos, com exceção do “_“.</li>
+<li>Espaços em branco não são permitidos.</li>
+<li>Acentos não são permitidos.</li>
+<li>Palavras reservadas da linguagem não são permitidas.</li>
+</ol>
+<p>A maioria das regras é autoexplicativa e varia pouco de linguagem
+para linguagem. Esclarecendo a 5ª regra: palavras reservadas são
+palavras utilizadas pela linguagem com alguma finalidade. Por exemplo,
+no visualg a palavra Inicio serve para especificar que a partir dali
+serão escritos os códigos que deverão ser interpretados pelo computador;
+como a palavra Inicio tem esta finalidade, ela é uma palavra reservada e
+não pode ser usada para nomear uma variável.</p>
+<p>Além do nome é necessário declarar o tipo da variável, os tipos
+primitivos são:</p>
+<ul>
+<li>Inteiro: números inteiros (não fracionários). Ex: 1, -2, 19, 434,
+etc.</li>
+<li>Real: números reais (inteiros e fracionários). Ex: 1.2, -19.0, 0.5,
+etc.</li>
+<li>Caractere: palavras. Ex: “exemplo”, “palavra”, “123”, etc.</li>
+<li>Lógico: verdadeiro ou faso.</li>
+</ul>
+<p>No visualg a seção <code>Var</code> é utilizada da seguinte
+forma:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>Var</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  indentificador<span class="sc">:</span>tipo</span></code></pre></div>
+<p>Para atribuir valores às variáveis declaradas, utiliza-se o símbolo
+“&lt;-”, lê-se “recebe”. Por exemplo, caso haja uma variável nomeada
+como x e declarada como inteiro, poderíamos colocar entre o
+<code>Inicio</code> e <code>Fimalgoritmo</code> algo como: x &lt;- 10; a
+partir deste momento, na memória do computador, x vale 10 e todas as
+operações são válidas.</p>
+<p>No ensino de algoritmos e lógica de programação, a declaração de
+variáveis é controversa. Alguns professores exigem que o programa seja
+todo escrito de cima para baixo, o que obriga o aluno a declarar todas
+as variáveis que serão usadas antes de escrever o código. Na prática não
+é usual fazer desta forma; em geral começamos a escrever o código e, se
+precisamos de uma variável para armazenar um valor, voltamos para a
+seção <code>Var</code> e a declaramos.</p>
+<hr />
+</div>
+<div id="comando-de-entrada" class="section level1">
+<h1>Comando de entrada</h1>
+<p>Os comandos de entrada servem para ler alguma informação a ser
+fornecida pelo usuário. No visualg existe o comando <code>Leia</code>,
+ele exige que o usuário informe um valor a ser armazenado em uma
+variável previamente declarada. Um exemplo é:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>Algoritmo <span class="st">&quot;Nome&quot;</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>Var</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>   nome<span class="sc">:</span> caractere</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>Inicio</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>   <span class="fu">Escreval</span>(<span class="st">&quot;Qual é o seu nome?&quot;</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>   <span class="fu">Leia</span>(nome)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>   <span class="fu">Escreval</span>(<span class="st">&quot;Olá, &quot;</span>, nome)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>Fimalgoritmo</span></code></pre></div>
+<p>Ao executar o algoritmo será printada a mensagem que pergunta qual o
+nome do usuário, então o usuário informa seu nome, que será armazenado
+na variável nome que foi declarada como caractere e, após isso, a
+variável foi utilizada para um último <code>Escreval</code>.</p>
+<p>Importante notar que o <code>Leia(nome)</code> exige que o usuário
+informe o valor que será armazenado na variável, caso ele não forneça o
+programa fica parado. Note também como o último <code>Escreval</code>
+foi utilizado para printar um fragmento de texto (que está entre aspas)
+concatenado com o valor que foi armazenado na variável.</p>
+<p>Considere o problema de calcular a soma de 2 números fornecidos pelo
+usuário, uma solução possível é:</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>algoritmo <span class="st">&quot;soma2n&quot;</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>var</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>   n1,n2,soma<span class="sc">:</span> inteiro</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>inicio</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">escreval</span>(<span class="st">&quot;Informe o primeiro número&quot;</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">leia</span>(n1)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">escreval</span>(<span class="st">&quot;Informe o segundo número&quot;</span>)</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">leia</span>(n2)</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>      soma <span class="ot">&lt;-</span> n1<span class="sc">+</span>n2</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">escreval</span>(n1,<span class="st">&quot;+&quot;</span>,n2, <span class="st">&quot;=&quot;</span>,soma)</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>fimalgoritmo</span></code></pre></div>
+<p>Note como neste programa todas as estruturas apresentadas foram
+utilizadas: variáveis foram declaradas, comandos de saída e entrada
+foram utilizados, bem como uma atribuição para armazenar a soma em uma
+variável.</p>
+<hr />
+</div>
+<div id="operadores-aritiméticos" class="section level1">
+<h1>Operadores aritiméticos</h1>
+<p>Os operadores aritméticos servem para realizar operações matemáticas
+básicas. Podem haver mudanças sutis em como os operadores são
+representados em algumas linguagens. No visualg as representações
+são:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Operador</th>
+<th align="center">Operação</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">+</td>
+<td align="center">Adição</td>
+</tr>
+<tr class="even">
+<td align="center">-</td>
+<td align="center">Subtração</td>
+</tr>
+<tr class="odd">
+<td align="center">*</td>
+<td align="center">Multiplicação</td>
+</tr>
+<tr class="even">
+<td align="center">/</td>
+<td align="center">Divisão</td>
+</tr>
+<tr class="odd">
+<td align="center">\</td>
+<td align="center">Divisão inteira</td>
+</tr>
+<tr class="even">
+<td align="center">^</td>
+<td align="center">Exponenciação</td>
+</tr>
+<tr class="odd">
+<td align="center">%</td>
+<td align="center">Módulo (resto da divisão)</td>
+</tr>
+</tbody>
+</table>
+<p>Os operadores seguem uma hierarquia, ou seja, uma ordem de
+precedência. Inicialmente são efetuadas as operações entre parênteses
+seguindo a ordem: exponenciação, multiplicação/divisão e por fim
+adição/subtração. Note como a ordem de precedência não é exclusiva de
+algoritmos, ela segue a mesma lógica das operações matemáticas
+usuais.</p>
+<p>As funções aritméticas não triviais variam de acordo com a linguagem,
+o visualg possui:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Operador</th>
+<th align="center">Operação</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Abs</td>
+<td align="center">Valor absoluto</td>
+</tr>
+<tr class="even">
+<td align="center">Exp</td>
+<td align="center">Exponenciação</td>
+</tr>
+<tr class="odd">
+<td align="center">Int</td>
+<td align="center">Valor inteiro</td>
+</tr>
+<tr class="even">
+<td align="center">RaizQ</td>
+<td align="center">Raiz quadrada</td>
+</tr>
+<tr class="odd">
+<td align="center">Pi</td>
+<td align="center">Número pi</td>
+</tr>
+<tr class="even">
+<td align="center">Sen</td>
+<td align="center">Seno em radianos</td>
+</tr>
+<tr class="odd">
+<td align="center">Cos</td>
+<td align="center">Cosseno em radianos</td>
+</tr>
+<tr class="even">
+<td align="center">Tan</td>
+<td align="center">Tangente em radianos</td>
+</tr>
+<tr class="odd">
+<td align="center">GraupRad</td>
+<td align="center">Transforma graus para radianos</td>
+</tr>
+</tbody>
+</table>
+<hr />
+</div>
+<div id="operadores-relacionais" class="section level1">
+<h1>Operadores relacionais</h1>
+<p>Os operadores relacionais são utilizados para comparar valores das
+variáveis e sempre retornam valores lógicos, ou seja,
+<strong>verdadeiro</strong> ou <strong>falso</strong>. No visualg, os
+operadores relacionais são:</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Operador</th>
+<th align="center">Operação</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">&gt;</td>
+<td align="center">Maior que</td>
+</tr>
+<tr class="even">
+<td align="center">&lt;</td>
+<td align="center">Menor que</td>
+</tr>
+<tr class="odd">
+<td align="center">&gt;=</td>
+<td align="center">Maior ou igual que</td>
+</tr>
+<tr class="even">
+<td align="center">&lt;=</td>
+<td align="center">Menor ou igual que</td>
+</tr>
+<tr class="odd">
+<td align="center">=</td>
+<td align="center">Igual</td>
+</tr>
+<tr class="even">
+<td align="center">&lt;&gt;</td>
+<td align="center">Diferente</td>
+</tr>
+</tbody>
+</table>
+<p>Considere que o problema de interesse é comparar 3 números fornecidos
+pelo usuário, uma solução possível é dada por:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>algoritmo <span class="st">&quot;3compara3n&quot;</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>var</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>   a,b,c<span class="sc">:</span> inteiro</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>inicio</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">escreval</span>(<span class="st">&quot;Digite o primeiro valor&quot;</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">leia</span>(a)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">escreval</span>(<span class="st">&quot;Digite o segundo valor&quot;</span>)</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">leia</span>(b)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">escreval</span>(<span class="st">&quot;Digite o terceiro valor&quot;</span>)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">leia</span>(c)</span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">escreval</span>()</span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>      <span class="fu">escreval</span>(a,<span class="st">&quot; é igual a&quot;</span>,b,<span class="st">&quot;?&quot;</span>,<span class="at">a=</span>b)</span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">escreval</span>(a,<span class="st">&quot; é igual a&quot;</span>,c,<span class="st">&quot;?&quot;</span>,<span class="at">a=</span>c)</span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>      <span class="fu">escreval</span>(b,<span class="st">&quot; é igual a&quot;</span>,c,<span class="st">&quot;?&quot;</span>,<span class="at">b=</span>c)</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>      <span class="fu">escreval</span>()</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>      <span class="fu">escreval</span>(a,<span class="st">&quot; é maior que&quot;</span>,b,<span class="st">&quot;?&quot;</span>,a<span class="sc">&gt;</span>b)</span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">escreval</span>(a,<span class="st">&quot; é maior que&quot;</span>,c,<span class="st">&quot;?&quot;</span>,a<span class="sc">&gt;</span>c)</span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>      <span class="fu">escreval</span>(b,<span class="st">&quot; é maior que&quot;</span>,c,<span class="st">&quot;?&quot;</span>,b<span class="sc">&gt;</span>c)</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>      <span class="fu">escreval</span>()</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>      <span class="fu">escreval</span>(a,<span class="st">&quot; é maior que &quot;</span>,b,<span class="st">&quot; ou maior que &quot;</span>,c,<span class="st">&quot;?&quot;</span>,(a<span class="sc">&gt;</span>b)<span class="fu">ou</span>(a<span class="sc">&gt;</span>c))</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>      <span class="fu">escreval</span>()</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>      </span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>fimalgoritmo</span></code></pre></div>
+<hr />
+</div>
+<div id="operadores-lógicos" class="section level1">
+<h1>Operadores lógicos</h1>
+<p>Os operadores lógicos, assim como os relacionais, retornam resultados
+lógicos. Contudo sua finalidade é outra, diferentemente dos aritméticos
+eles servem para comparar outros resultados lógicos. No visualg existem
+3 operadores lógicos: <strong>E</strong>, <strong>OU</strong> e
+<strong>NÃO</strong>. Para exemplificar o funcionamento dos operadores,
+considere as variáveis p e q:</p>
+<ul>
+<li>Se p é verdaeiro e q é verdadeiro, então <strong>p E q</strong>
+resulta em <strong>verdadeiro</strong>.</li>
+<li>Se p é verdaeiro e q é falso, então <strong>p E q</strong> resulta
+em <strong>falso</strong>.</li>
+<li>Se ambos são falsos, então <strong>p E q</strong> resulta em
+<strong>falso</strong>.</li>
+</ul>
+<p>Já para o operador <strong>OU</strong>, se qualquer uma das opções
+for verdadeira, o resultado será verdadeiro. Por fim, o operador
+<strong>NÃO</strong> trabalha com negativas, por exemplo: se p é
+verdadeiro, <strong>NÃO</strong> p é falso.</p>
+<p>Lembre-se que para utilizar os operadores lógicos é necessário
+comparar resultados lógicos, e que operadores relacionais geram
+resultados lógicos. Portanto é possível utilizar operadores lógicos com
+relacionais. Por exemplo: <strong>(A=B) OU (A=C)</strong>,
+<strong>(A&gt;B) E (A=C)</strong>, etc.</p>
+<p>Os operadores lógicos são os últimos da hierarquia de precedência,
+pois inicialmente são efetuadas as operações aritméticas, depois as
+relacionais e, por fim, as operações lógicas.</p>
+<hr />
+</div>
+<div id="estruturas-condicionais" class="section level1">
+<h1>Estruturas condicionais</h1>
+<p>Uma estrutura condicional é utilizada quando a ação a ser tomada
+depende de uma condição ser ou não satisfeita, algo como: se tal coisa
+acontecer faça isso, senão faça aquilo. Em pseudocódigo isso é escrito
+da seguinte forma:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Se</span> (condição) entao</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>  bloco </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>FimSe  </span></code></pre></div>
+<p>Quando uma ação é tomada apenas se a condição de interesse for
+verdadeira, temos uma <strong>condicional simples</strong>. Para
+ilustrar considere o problema em que o usuário informa a idade e o
+programa retorna se ele pode ou não tirar carteira de motorista:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>algoritmo <span class="st">&quot;cnh&quot;</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>var</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>   idade<span class="sc">:</span> inteiro</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>inicio</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>   <span class="fu">escreval</span>(<span class="st">&quot;Quantos anos completos você tem?&quot;</span>)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>   <span class="fu">leia</span>(idade)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>   <span class="fu">escreval</span>()</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>   se idade <span class="sc">&gt;=</span> <span class="dv">18</span> entao</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">escreval</span>(<span class="st">&quot;Você é maior de idade, logo, pode tirar sua CNH.&quot;</span>)</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>   fimse</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>fimalgoritmo</span></code></pre></div>
+<p>Note que se o usuário for menor de idade o programa encerra, pois não
+há instrução para caso a condição não seja satisfeita. Podemos melhorar
+essa condicional acrescentando um bloco de código que será executado
+caso a condição não seja atendida, isso é feito complementando a
+estrutura simples com um <code>senão</code> da seguinte forma:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Se</span> (condição) entao</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  bloco1</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>Senao</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>  bloco2</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>FimSe  </span></code></pre></div>
+<p>A esta estrutura damos o nome de <strong>condicional
+composta</strong>. Melhorando o programa que retorna se o usuário pode
+ou não tirar carteira de motorista:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>algoritmo <span class="st">&quot;cnh&quot;</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>var</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>   idade<span class="sc">:</span> inteiro</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>inicio</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>   <span class="fu">escreval</span>(<span class="st">&quot;Quantos anos completos você tem?&quot;</span>)</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>   <span class="fu">leia</span>(idade)</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>   <span class="fu">escreval</span>()</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>   se idade <span class="sc">&gt;=</span> <span class="dv">18</span> entao</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">escreval</span>(<span class="st">&quot;Você é maior de idade, logo, pode tirar sua CNH.&quot;</span>)</span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>   senao</span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">escreval</span>(<span class="st">&quot;Você ainda é menor de idade, portanto, não pode tirar sua CNH.&quot;</span>)</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a>   fimse</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>fimalgoritmo</span></code></pre></div>
+<p>Note, além da apresentação da estrutura, como a indentação funciona e
+torna o código mais legível. Algumas linguagens possuem indentador
+automático, contudo é importante não se acostumar com esta ferramenta
+imaginando que algum dia pode ser necessário trabalhar com alguma
+linguagem que não possua tal artifício.</p>
+<p>Outra situação que envolve condições são as chamdas
+<strong>condicionais aninhadas</strong>, trata-se da situação quando
+necessitamos de diversas condicionais, uma dentro da outra.
+Genericamente em pseudocódigo, a situação em que temos duas possíveis
+condições que podem ser satisfeitas fica da seguinte forma:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="fu">Se</span> (condição1) entao</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  bloco1</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>Senao</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">Se</span> (condição2) entao</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    bloco2</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>  Senao</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>    bloco3</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  FimSE  </span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>FimSe</span></code></pre></div>
+<p>Desta forma temos quantas condicionais forem necessárias e blocos a
+ser executados para cada uma das situações. Por exemplo, considere o
+problema em que o usuário fornece o peso e a altura, o programa retorna
+o IMC (massa/altura^2) e uma mensagem a respeito do IMC. As mensagens
+são:</p>
+<ul>
+<li>Se o IMC for menor que 17: “Você está muito abaixo do peso.”</li>
+<li>Se estiver entre 17 e 18,5: “Você está abaixo do peso.”</li>
+<li>Se estiver entre 18,5 e 25: “Você está no peso ideal.”</li>
+<li>Se estiver entre 30 e 35: “Você está com obesidade.”</li>
+<li>Se estiver entre 35 e 40: “Você está com obesidade severa.”</li>
+<li>Se for maior que 40: “Você está com obesidade mórbida.”</li>
+<li>Se nehuma das condições for aceita: “O peso e/ou a altura informados
+estão incorretos.”</li>
+</ul>
+<p>Uma possível solução é:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>algoritmo <span class="st">&quot;imc&quot;</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>var</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>   peso, altura, imc<span class="sc">:</span> real</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>inicio</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>   <span class="fu">escreval</span>(<span class="st">&quot;Informe seu peso(Kg)&quot;</span>)</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>   <span class="fu">leia</span>(peso)</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>   <span class="fu">escreval</span>(<span class="st">&quot;Informe sua altura(m)&quot;</span>)</span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>   <span class="fu">leia</span>(altura)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>   imc <span class="ot">&lt;-</span> peso<span class="sc">/</span>(altura<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>   <span class="fu">escreval</span>(<span class="st">&quot;Seu IMC é igual a &quot;</span>, imc, <span class="st">&quot;.&quot;</span>)</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>   se imc<span class="sc">&lt;=</span><span class="dv">17</span> entao</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>      <span class="fu">escreval</span>(<span class="st">&quot;Você está muito abaixo do peso.&quot;</span>)</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>   senao</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>      <span class="fu">se</span> (imc<span class="sc">&gt;</span><span class="dv">17</span>) <span class="fu">e</span> (imc<span class="sc">&lt;=</span><span class="fl">18.5</span>) entao</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>         <span class="fu">escreval</span>(<span class="st">&quot;Você está abaixo do peso.&quot;</span>)</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>      senao</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>         <span class="fu">se</span> (imc<span class="sc">&gt;</span><span class="fl">18.5</span>) <span class="fu">e</span> (imc<span class="sc">&lt;=</span><span class="dv">25</span>) entao</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>            <span class="fu">escreval</span>(<span class="st">&quot;Você está no peso ideal.&quot;</span>)</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>         senao</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>            <span class="fu">se</span> (imc<span class="sc">&gt;</span><span class="dv">30</span>) <span class="fu">e</span> (imc<span class="sc">&lt;=</span><span class="dv">35</span>) entao</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>               <span class="fu">escreval</span>(<span class="st">&quot;Você está com obesidade.&quot;</span>)</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>            senao</span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>               <span class="fu">se</span> (imc<span class="sc">&gt;</span><span class="dv">35</span>) <span class="fu">e</span> (imc<span class="sc">&lt;=</span><span class="dv">40</span>) entao</span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>                  <span class="fu">escreval</span>(<span class="st">&quot;Você está com obesidade severa.&quot;</span>)</span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>               senao</span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>                  se imc<span class="sc">&gt;</span><span class="dv">40</span> entao</span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">escreval</span>(<span class="st">&quot;Você está com obesidade mórbida.&quot;</span>)</span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>                  senao</span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>                     <span class="fu">escreval</span>(<span class="st">&quot;O peso e/ou a altura informados estão incorretos.&quot;</span>)</span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>                  fimse</span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>               fimse</span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>            fimse</span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>         fimse</span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>      fimse</span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a>   fimse</span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a>fimalgoritmo</span></code></pre></div>
+<p>A última estrutura condicional a ser apresentada é também chamada de
+<strong>estrutura de escolha</strong>, ou <strong>escolha/caso</strong>
+e tem a seguinte forma:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>escolha variável</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  caso valor </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    bloco1</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  caso valor</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    bloco2</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  outrocaso</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>    bloco3</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>fimescolha</span></code></pre></div>
+<p>A <strong>estrutura de escolha</strong> é uma opção bem mais simples
+que a solução de <strong>condicionais aninhadas</strong>, contudo há uma
+importante restrição: ela serve apenas para valores inteiros, ou seja,
+para variáveis que assumem valores inteiros; não sendo possível desta
+forma testar faixas de valores como foi feito no caso do IMC. Em certas
+linguagens esta estrutura pode ser usada em algumas outras situações,
+mas em geral é destinada apenas para o caso de valores inteiros.</p>
+<p>Considere que uma empresa quer reajustar o salário dos seus
+funcionários baseado no número de dependentes financeiros de tal forma
+que:</p>
+<ul>
+<li>Caso o funcionário não tenha dependentes, o reajuste seja 5%.</li>
+<li>Caso tenha de 1 a 3 dependentes, o reajuste seja 10%.</li>
+<li>Caso tenha de 4 a 6 dependentes, o reajuste seja 15%.</li>
+<li>Caso tenha mais de 6 dependentes, o reajuste seja 18%.</li>
+</ul>
+<p>Uma solução para o problema é:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>algoritmo <span class="st">&quot;novosalario&quot;</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>var</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>   sal, novosal<span class="sc">:</span> real</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>   dep<span class="sc">:</span> inteiro</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>inicio</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>   <span class="fu">escreval</span>(<span class="st">&quot;informe o salario do funcionário&quot;</span>)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>   <span class="fu">leia</span>(sal)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>   <span class="fu">escreval</span>(<span class="st">&quot;informe o numero de dependentes do funcionário&quot;</span>)</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>   <span class="fu">leia</span>(dep)</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>   <span class="fu">escreval</span>(<span class="st">&quot;atualmente recebe&quot;</span>, sal, <span class="st">&quot; reais&quot;</span>)</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>   <span class="fu">escreval</span>(<span class="st">&quot;e possui&quot;</span>,dep, <span class="st">&quot; dependentes.&quot;</span>)</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>   escolha dep</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>   caso <span class="dv">0</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>      novosal <span class="ot">&lt;-</span> sal<span class="sc">+</span>(sal<span class="sc">*</span><span class="fl">0.05</span>)</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>   caso <span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>      novosal <span class="ot">&lt;-</span> sal<span class="sc">+</span>(sal<span class="sc">*</span><span class="fl">0.1</span>)</span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>   caso <span class="dv">4</span>,<span class="dv">5</span>,<span class="dv">6</span></span>
+<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a>      novosal <span class="ot">&lt;-</span> sal<span class="sc">+</span>(sal<span class="sc">*</span><span class="fl">0.15</span>)</span>
+<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>   outrocaso</span>
+<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a>      novosal <span class="ot">&lt;-</span> sal<span class="sc">+</span>(sal<span class="sc">*</span><span class="fl">0.18</span>)</span>
+<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>   fimescolha</span>
+<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>   <span class="fu">escreval</span>(<span class="st">&quot;O salário reajustado é igual a &quot;</span>, novosal, <span class="st">&quot;  reais,&quot;</span>)</span>
+<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>fimalgoritmo</span></code></pre></div>
+<hr />
+</div>
+<div id="estruturas-de-repetição" class="section level1">
+<h1>Estruturas de repetição</h1>
+<p>As <strong>estruturas de repetição</strong> permitem executar mais de
+uma vez um mesmo bloco de código sob determinadas condições quantas
+vezes forem necessárias. Por se tratar de uma ou mais operações que se
+repetem, também são chamadas de <strong>laços interativos</strong> ou
+<strong>loops</strong>.</p>
+<p>A primeira forma de se utilizar uma estrutura de repetição é com o
+<strong>enquanto</strong>, de tal forma que dizemos: “enquanto a
+condição não for aceita faça tal coisa”. Normalmente a condição está
+associada a um contador, genericamente em pseudocodigo:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>enquanto contador<span class="sc">&lt;=</span>numero faca</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    bloco</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  contador<span class="ot">&lt;-</span>contador<span class="sc">+</span>incremento</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>fimenquanto</span></code></pre></div>
+<p>Considere o problema em que o usuário fornece um valor inicial, um
+valor final, um incremento e o programa faz a contagem do valor inicial
+até o final. Utilizando o enquanto, uma solução é:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>algoritmo <span class="st">&quot;contagem_enquanto&quot;</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>var</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>   i,inicial,final,incremento<span class="sc">:</span>inteiro</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>inicio</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>   <span class="fu">escreval</span>(<span class="st">&quot;Digite o valor inicial&quot;</span>)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>   <span class="fu">leia</span>(inicial)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>   <span class="fu">escreval</span>(<span class="st">&quot;Digite o valor final&quot;</span>)</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>   <span class="fu">leia</span>(final)</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>   <span class="fu">escreval</span>(<span class="st">&quot;Digite o incremento&quot;</span>)</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>   <span class="fu">leia</span>(incremento)</span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>   <span class="fu">escreval</span>(<span class="st">&quot;-------------------------------&quot;</span>)</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>   <span class="fu">escreval</span>(<span class="st">&quot;Irei contar de &quot;</span>,inicial,<span class="st">&quot; até &quot;</span>,final,<span class="st">&quot; de &quot;</span>,incremento, <span class="st">&quot; em &quot;</span>, incremento.)</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>   <span class="fu">escreval</span>(<span class="st">&quot;-------------------------------&quot;</span>)</span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>   i<span class="ot">&lt;-</span>inicial</span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>   enquanto i<span class="sc">&lt;=</span>final faca</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>      <span class="fu">escreval</span>(i)</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>      i<span class="ot">&lt;-</span>i<span class="sc">+</span>incremento</span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>   fimenquanto</span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>   <span class="fu">escreval</span>(<span class="st">&quot;Fim do laço.&quot;</span>)</span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>fimalgoritmo</span></code></pre></div>
+<p>Melhorando a solução, podemos fazer com que o algoritmo detecte se o
+valor incial é menor ou maior que o final e realizar uma contagem
+progressiva ou regressiva:</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>algoritmo <span class="st">&quot;contagem_enquanto&quot;</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>var</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>   i,inicial,final,incremento,soma<span class="sc">:</span>inteiro</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>inicio</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>   <span class="fu">escreval</span>(<span class="st">&quot;Digite o valor inicial&quot;</span>)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>   <span class="fu">leia</span>(inicial)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>   <span class="fu">escreval</span>(<span class="st">&quot;Digite o valor final&quot;</span>)</span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>   <span class="fu">leia</span>(final)</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>   <span class="fu">escreval</span>(<span class="st">&quot;Digite o incremento&quot;</span>)</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>   <span class="fu">leia</span>(incremento)</span>
+<span id="cb17-14"><a href="#cb17-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-15"><a href="#cb17-15" aria-hidden="true" tabindex="-1"></a>   <span class="fu">escreval</span>(<span class="st">&quot;-------------------------------&quot;</span>)</span>
+<span id="cb17-16"><a href="#cb17-16" aria-hidden="true" tabindex="-1"></a>   <span class="fu">escreval</span>(<span class="st">&quot;Irei contar de &quot;</span>,inicial,<span class="st">&quot; até &quot;</span>,final,<span class="st">&quot; de &quot;</span>,incremento, <span class="st">&quot; em &quot;</span>, incremento.)</span>
+<span id="cb17-17"><a href="#cb17-17" aria-hidden="true" tabindex="-1"></a>   <span class="fu">escreval</span>(<span class="st">&quot;-------------------------------&quot;</span>)</span>
+<span id="cb17-18"><a href="#cb17-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-19"><a href="#cb17-19" aria-hidden="true" tabindex="-1"></a>   soma <span class="ot">&lt;-</span><span class="dv">0</span></span>
+<span id="cb17-20"><a href="#cb17-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-21"><a href="#cb17-21" aria-hidden="true" tabindex="-1"></a>   se final<span class="sc">&gt;</span>inicial entao</span>
+<span id="cb17-22"><a href="#cb17-22" aria-hidden="true" tabindex="-1"></a>      <span class="fu">escreval</span>(<span class="st">&quot;Contagem progressiva detectada.&quot;</span>)</span>
+<span id="cb17-23"><a href="#cb17-23" aria-hidden="true" tabindex="-1"></a>      i<span class="ot">&lt;-</span>inicial</span>
+<span id="cb17-24"><a href="#cb17-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-25"><a href="#cb17-25" aria-hidden="true" tabindex="-1"></a>      enquanto i<span class="sc">&lt;=</span>final faca</span>
+<span id="cb17-26"><a href="#cb17-26" aria-hidden="true" tabindex="-1"></a>         <span class="fu">escreval</span>(i)</span>
+<span id="cb17-27"><a href="#cb17-27" aria-hidden="true" tabindex="-1"></a>         soma<span class="ot">&lt;-</span>soma<span class="sc">+</span>i</span>
+<span id="cb17-28"><a href="#cb17-28" aria-hidden="true" tabindex="-1"></a>         i<span class="ot">&lt;-</span>i<span class="sc">+</span>incremento</span>
+<span id="cb17-29"><a href="#cb17-29" aria-hidden="true" tabindex="-1"></a>      fimenquanto</span>
+<span id="cb17-30"><a href="#cb17-30" aria-hidden="true" tabindex="-1"></a>      <span class="fu">escreval</span>(<span class="st">&quot;A soma dos números é igual a &quot;</span>, soma)</span>
+<span id="cb17-31"><a href="#cb17-31" aria-hidden="true" tabindex="-1"></a>      <span class="fu">escreval</span>(<span class="st">&quot;Fim do laço.&quot;</span>)</span>
+<span id="cb17-32"><a href="#cb17-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-33"><a href="#cb17-33" aria-hidden="true" tabindex="-1"></a>   senao</span>
+<span id="cb17-34"><a href="#cb17-34" aria-hidden="true" tabindex="-1"></a>      <span class="fu">escreval</span>(<span class="st">&quot;Contagem regressiva detectada.&quot;</span>)</span>
+<span id="cb17-35"><a href="#cb17-35" aria-hidden="true" tabindex="-1"></a>      i<span class="ot">&lt;-</span>inicial</span>
+<span id="cb17-36"><a href="#cb17-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-37"><a href="#cb17-37" aria-hidden="true" tabindex="-1"></a>      enquanto i<span class="sc">&gt;=</span>final faca</span>
+<span id="cb17-38"><a href="#cb17-38" aria-hidden="true" tabindex="-1"></a>         <span class="fu">escreval</span>(i)</span>
+<span id="cb17-39"><a href="#cb17-39" aria-hidden="true" tabindex="-1"></a>         soma<span class="ot">&lt;-</span>soma<span class="sc">+</span>i</span>
+<span id="cb17-40"><a href="#cb17-40" aria-hidden="true" tabindex="-1"></a>         i<span class="ot">&lt;-</span>i<span class="sc">-</span>incremento</span>
+<span id="cb17-41"><a href="#cb17-41" aria-hidden="true" tabindex="-1"></a>      fimenquanto</span>
+<span id="cb17-42"><a href="#cb17-42" aria-hidden="true" tabindex="-1"></a>      <span class="fu">escreval</span>(<span class="st">&quot;A soma dos números é igual a &quot;</span>, soma)</span>
+<span id="cb17-43"><a href="#cb17-43" aria-hidden="true" tabindex="-1"></a>      <span class="fu">escreval</span>(<span class="st">&quot;Fim do laço.&quot;</span>)</span>
+<span id="cb17-44"><a href="#cb17-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-45"><a href="#cb17-45" aria-hidden="true" tabindex="-1"></a>   fimse</span>
+<span id="cb17-46"><a href="#cb17-46" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb17-47"><a href="#cb17-47" aria-hidden="true" tabindex="-1"></a>fimalgoritmo</span></code></pre></div>
+<p>Note que para solução deste problema foi necessário utilizar
+estruturas condicionais e de repetição além de comandos de entrada,
+saída, operadores aritméticos e atribuições.</p>
+<p>A segunda estrutura de repetição é a <strong>repita</strong>, sua
+sintaxe é da seguinte forma:</p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>Repita</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>  bloco</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>Ate condição  </span></code></pre></div>
+<p>É uma estrutura extremamente parecida com o
+<strong>enquanto</strong>, porém é logicamente inversa. Trata-se de uma
+estrutura alternativa ao enquanto em que o teste lógico é feito no final
+da estrutura, e não no começo. Compare:</p>
+<ul>
+<li>Enquanto a condição não for aceita faça tal coisa.</li>
+<li>Faça tal coisa até que a condição seja aceita.</li>
+</ul>
+<p>Para exemplificar, considere o problema em que o usuário fornece um
+valor e o programa retorna a tabuada deste valor:</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>algoritmo <span class="st">&quot;tabuada&quot;</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>var</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>   i,valor<span class="sc">:</span>inteiro</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>inicio</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>      <span class="fu">escreval</span>(<span class="st">&quot;Qual tabuada você deseja ver?&quot;</span>)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">leia</span>(valor)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>   i <span class="ot">&lt;-</span><span class="dv">0</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>   repita</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>      <span class="fu">escreval</span>(valor,<span class="st">&quot;x&quot;</span>,i,<span class="st">&quot;=&quot;</span>,valor<span class="sc">*</span>i)</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>      i<span class="ot">&lt;-</span> i<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>   ate i<span class="sc">&gt;</span><span class="dv">10</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>fimalgoritmo</span></code></pre></div>
+<p>Outro exemplo com a estrutura repita, considere que o problema de
+interesse é calcular o fatorial de um número fornecido pelo usuário e
+que, ao invés de efetuar a conta e o programa ser encerrado, queremos
+que o programa pergunte para o usuário se ele deseja ou não continuar,
+de tal forma que ele vai fornecer outro número, outro fatorial será
+efetuado e assim por diante, até que o usuário diga que não quer mais
+efetuar nenhum fatorial. Uma solução possível é:</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>Algoritmo <span class="st">&quot;fatorial&quot;</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>Var</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>   n,fatorial,i<span class="sc">:</span>inteiro</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>   resp<span class="sc">:</span>caractere</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>Inicio</span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>   repita</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>      <span class="fu">escreval</span>(<span class="st">&quot;Informe o numero que voce gostaria de obter o fatorial&quot;</span>)</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>      <span class="fu">leia</span>(n)</span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>      fatorial <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-14"><a href="#cb20-14" aria-hidden="true" tabindex="-1"></a>      i <span class="ot">&lt;-</span> n</span>
+<span id="cb20-15"><a href="#cb20-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-16"><a href="#cb20-16" aria-hidden="true" tabindex="-1"></a>      repita</span>
+<span id="cb20-17"><a href="#cb20-17" aria-hidden="true" tabindex="-1"></a>         fatorial <span class="ot">&lt;-</span> fatorial<span class="sc">*</span>i</span>
+<span id="cb20-18"><a href="#cb20-18" aria-hidden="true" tabindex="-1"></a>         i<span class="ot">&lt;-</span>i<span class="dv">-1</span></span>
+<span id="cb20-19"><a href="#cb20-19" aria-hidden="true" tabindex="-1"></a>      ate i<span class="ot">=</span><span class="dv">1</span></span>
+<span id="cb20-20"><a href="#cb20-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-21"><a href="#cb20-21" aria-hidden="true" tabindex="-1"></a>      <span class="fu">escreval</span>(n, <span class="st">&quot;! = &quot;</span>, fatorial)</span>
+<span id="cb20-22"><a href="#cb20-22" aria-hidden="true" tabindex="-1"></a>      <span class="fu">escreval</span>(<span class="st">&quot;Deseja continuar? [s/n]&quot;</span>)</span>
+<span id="cb20-23"><a href="#cb20-23" aria-hidden="true" tabindex="-1"></a>      <span class="fu">leia</span>(resp)</span>
+<span id="cb20-24"><a href="#cb20-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-25"><a href="#cb20-25" aria-hidden="true" tabindex="-1"></a>   ate resp<span class="ot">=</span><span class="st">&quot;n&quot;</span></span>
+<span id="cb20-26"><a href="#cb20-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-27"><a href="#cb20-27" aria-hidden="true" tabindex="-1"></a>Fimalgoritmo</span></code></pre></div>
+<p>A última das estruturas de repetição é o <strong>para</strong>, cuja
+sintaxe é dada por:</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">para</span> (variavel) <span class="fu">de</span> (inicio) <span class="fu">ate</span> (fim) <span class="fu">passo</span> (incremento) faca</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>      bloco</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>fimpara</span></code></pre></div>
+<p>O <strong>para</strong> é uma das estruturas mais utilizadas e possui
+uma vantagem sobre as outras duas apresentadas: ela é auto
+incrementável, isto é, não há necessidade de especificar que uma
+variável contadora recebe ela mesma mais um incremento, o
+<strong>para</strong> faz isso automaticamente o que exige menos código
+para realização de uma tarefa que exige repetição.</p>
+<p>Contudo, é uma estrutura que exige um limite superior, isto é, no
+<strong>para</strong> o número de vezes que o loop será executado é
+fixo. O que não acontece no <strong>enquanto</strong> e no
+<strong>repita</strong>, estruturas nas quais podemos escrever de tal
+forma que o usuário forneça quantos valores quiser com uma estrutura do
+tipo:</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>Inicio</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>   repita</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">escreval</span>(<span class="st">&quot;Deseja continuar? [s/n]&quot;</span>)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a>   ate resp<span class="ot">=</span><span class="st">&quot;n&quot;</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a>Fimalgoritmo</span></code></pre></div>
+<p>Veja um algoritmo que conta até 10 utilizando o para:</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>algoritmo <span class="st">&quot;conta10_para&quot;</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>var</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>   i<span class="sc">:</span>inteiro</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>inicio</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>   para i de <span class="dv">1</span> ate <span class="dv">10</span> passo <span class="dv">1</span> faca</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>      <span class="fu">escreval</span>(i)</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>   fimpara</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>fimalgoritmo</span></code></pre></div>
+<p>Como exemplo mais completo, considere que precisamos escrever um
+programa que lê quantos valores o usuário quiser, retorna quantos estão
+entre 0 e 10 e a soma dos ímpares. Uma solução é dada por:</p>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>Algoritmo <span class="st">&quot;entre010&quot;</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>Var</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>   qtd, i, valor, cont, somaimpar<span class="sc">:</span>inteiro</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>   </span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a>Inicio</span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>   <span class="fu">escreva</span>(<span class="st">&quot;Quantos valores vamos analisar?&quot;</span>)</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a>   <span class="fu">leia</span>(qtd)</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a>   cont <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>   somaimpar <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-12"><a href="#cb24-12" aria-hidden="true" tabindex="-1"></a>   para i de <span class="dv">1</span> ate qtd faca</span>
+<span id="cb24-13"><a href="#cb24-13" aria-hidden="true" tabindex="-1"></a>      <span class="fu">escreva</span>(<span class="st">&quot;digite o &quot;</span>,i,<span class="st">&quot;º valor&quot;</span>)</span>
+<span id="cb24-14"><a href="#cb24-14" aria-hidden="true" tabindex="-1"></a>      <span class="fu">leia</span>(valor)</span>
+<span id="cb24-15"><a href="#cb24-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-16"><a href="#cb24-16" aria-hidden="true" tabindex="-1"></a>      <span class="fu">se</span> (valor<span class="sc">&lt;=</span><span class="dv">10</span>) <span class="fu">e</span> (valor<span class="sc">&gt;=</span><span class="dv">0</span>) entao</span>
+<span id="cb24-17"><a href="#cb24-17" aria-hidden="true" tabindex="-1"></a>         cont <span class="ot">&lt;-</span> cont<span class="sc">+</span><span class="dv">1</span></span>
+<span id="cb24-18"><a href="#cb24-18" aria-hidden="true" tabindex="-1"></a>      fimse</span>
+<span id="cb24-19"><a href="#cb24-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-20"><a href="#cb24-20" aria-hidden="true" tabindex="-1"></a>      <span class="fu">se</span> (valor%<span class="dv">2</span><span class="sc">&lt;</span><span class="er">&gt;</span><span class="dv">0</span>) <span class="fu">e</span> (valor<span class="sc">&lt;=</span><span class="dv">10</span>) <span class="fu">e</span> (valor<span class="sc">&gt;=</span><span class="dv">0</span>) entao</span>
+<span id="cb24-21"><a href="#cb24-21" aria-hidden="true" tabindex="-1"></a>         somaimpar <span class="ot">&lt;-</span> somaimpar<span class="sc">+</span>valor</span>
+<span id="cb24-22"><a href="#cb24-22" aria-hidden="true" tabindex="-1"></a>      fimse</span>
+<span id="cb24-23"><a href="#cb24-23" aria-hidden="true" tabindex="-1"></a>   fimpara</span>
+<span id="cb24-24"><a href="#cb24-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-25"><a href="#cb24-25" aria-hidden="true" tabindex="-1"></a>   <span class="fu">escreval</span>(<span class="st">&quot;Existem &quot;</span>, cont, <span class="st">&quot; números entre 0 e 10&quot;</span>)</span>
+<span id="cb24-26"><a href="#cb24-26" aria-hidden="true" tabindex="-1"></a>   <span class="fu">escreval</span>(<span class="st">&quot;A soma entre os impares digitados é  &quot;</span>, somaimpar)</span>
+<span id="cb24-27"><a href="#cb24-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-28"><a href="#cb24-28" aria-hidden="true" tabindex="-1"></a>Fimalgoritmo</span></code></pre></div>
+<hr />
+</div>
+<div id="considerações-finais" class="section level1">
+<h1>Considerações finais</h1>
+<p>Como mencionado anteriormente a lógica de programação é indispensável
+para quem deseja aprender uma linguagem. Tentar aprender a linguagem
+antes da lógica ou ambos ao mesmo tempo não está errado, porém gera um
+problema de generalização, tornando estudar novas linguagens uma tarefa
+mais árdua.</p>
+<p>Por isso, entender comandos, operadores e estruturas é algo salubre
+para aqueles que trabalham com programação pois, aprendendo estas
+estruturas com qualidade é infinitamente mais fácil passar para outras
+linguagens.</p>
+<p>As linguagens têm suas peculiaridades, coisas que funcionam em uma,
+não funcionam em outra; todavia as estruturas gerais sempre estarão lá
+com uma ou outra diferença sutil de sintaxe.</p>
+<p>Sendo assim, uma forma de entender as ferramentas que existem em
+qualquer linguagem e praticá-las é através do português estruturado
+(portugol) em aplicativos como o visualg.</p>
+<p>Neste material todos os tópicos foram tratados de maneira ampla sem
+entrar com grandes detalhes nos assuntos ou resolver problemas com nível
+de dificuldade elevada. Porém lembre-se que programação, tal como
+matemática ou qualquer outra habilidade, exige prática para que a
+proficiência seja elevada.</p>
+<p>Tópicos não abordados neste post foram vetores, matrizes, funções e
+procedimentos numa tentativa de tornar o material menos extenso.</p>
+<hr />
+<p>Existe uma infinidade de materiais e cursos online a respeito do tema
+aqui abordado. Uma que gosto muito e considero bastante acessível é a
+playlist <a
+href="https://www.youtube.com/playlist?list=PLHz_AreHm4dmSj0MHol_aoNYCSGFqvfXV">Curso
+de Lógica de Programação</a>.</p>
+<hr />
+<p>Críticas e sugestões a este material sempre serão bem vindas.</p>
+<p>Para entrar em contato comigo, envie uma mensagem para <a
+href="mailto:lineuacf@gmail.com"
+class="email">lineuacf@gmail.com</a>.</p>
+<hr />
+<div class="tocify-extend-page" data-unique="tocify-extend-page"
+style="height: 0;">
+
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+---
+title: Exame de qualificação PPGInf UFPR
+subtitle: Testes de hipóteses em modelos multivariados de covariância linear generalizada
+author: Lineu Alberto Cavazani de Freitas
+output:
+  html_document: 
+    type: inverse
+    # Sumário
+    #toc: true   
+    toc_depth: 3 # Profundidade do sumário                   
+#    toc_float:                      
+#      collapsed: true # Sumário flutuante (lateral)
+    
+#    number_sections: true # Seções numeradas
+    
+    # Aparência
+    theme: cosmo
+    # Temas possíveis:
+    # default,cerulean,journal,flatly,readable,spacelab,
+    # united,cosmo,lumen,paper,sandstone,simplex,yeti
+    
+    # Códigos R no texto
+#    highlight: espresso
+    # Temas possíveis:
+    # default, tango, pygments, kate, monochrome, 
+    # espresso, zenburn, haddock, and textmate
+    #css: styles.css                
+    
+    # Configurações globais de imagens
+    fig_width: 7  # Largura                  
+    fig_height: 6 # Altura                  
+    fig_caption: true # Legenda              
+    fig_align: 'center' # Posição
+
+    # Esconder o código
+#    code_folding: hide 
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+---
+
+Um dos requisitos para obtenção do título de mestre em informática pela Universidade Federal do Praná é o exame de qualificação. O exame corresponde à defesa da proposta de dissertação perante uma banca examinadora, que delibera pela aprovação ou reprovação da mesma.
+
+Data da defesa: 31/08/2021
+
+Título da proposta: Testes de hipóteses em modelos multivariados de covariância linear generalizada.
+
+Orientador: [Prof. Wagner Hugo Bonat](http://www.leg.ufpr.br/~wagner/) (DEST/PPGInf UFPR)
+
+Co-orientador: [Prof. Marco Antônio Zanata Alves](https://web.inf.ufpr.br/mazalves/) (DINF/PPGInf UFPR)
+
+Banca:
+
+ - [Prof. Daniel Furtado Ferreira](https://des.ufla.br/~danielff/) (DES UFLA)
+
+ - [Prof. Paulo Ricardo Lisboa de Almeida](http://prlalmeida.com.br/) (DINF/PPGInf UFPR)
+
+---
+
+Apresentação disponível [aqui](https://github.com/lineu96/presentations/blob/master/7_quali/slides.pdf).
+
+Texto disponível [aqui](https://github.com/lineu96/quali_texto/blob/master/quali_lineu.pdf).
+
+Vídeo disponível [aqui](https://www.youtube.com/embed/lCUU2AJXGoU)
+
+---
+
+<center>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/lCUU2AJXGoU" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+
+---
+
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>

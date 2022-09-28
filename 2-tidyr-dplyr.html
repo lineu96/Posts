@@ -1,0 +1,1493 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="Lineu Alberto Cavazani de Freitas" />
+
+
+<title>Primeiros Passos com tidyr e dplyr</title>
+
+<script src="site_libs/header-attrs-2.14/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    background-color: #2a211c;
+    color: #bdae9d;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #bdae9d;  padding-left: 4px; }
+div.sourceCode
+  { color: #bdae9d; background-color: #2a211c; }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ffff00; } /* Alert */
+code span.an { color: #0066ff; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #44aa43; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #43a8ed; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #049b0a; } /* Char */
+code span.cn { } /* Constant */
+code span.co { color: #0066ff; font-weight: bold; font-style: italic; } /* Comment */
+code span.do { color: #0066ff; font-style: italic; } /* Documentation */
+code span.dt { text-decoration: underline; } /* DataType */
+code span.dv { color: #44aa43; } /* DecVal */
+code span.er { color: #ffff00; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #44aa43; } /* Float */
+code span.fu { color: #ff9358; font-weight: bold; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #0066ff; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #43a8ed; font-weight: bold; } /* Keyword */
+code span.op { } /* Operator */
+code span.pp { font-weight: bold; } /* Preprocessor */
+code span.sc { color: #049b0a; } /* SpecialChar */
+code span.ss { color: #049b0a; } /* SpecialString */
+code span.st { color: #049b0a; } /* String */
+code span.va { } /* Variable */
+code span.vs { color: #049b0a; } /* VerbatimString */
+code span.wa { color: #ffff00; font-weight: bold; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Posts</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://lineu96.github.io">
+    <span class="fa fa-user"></span>
+     
+    Lineu A.C.F
+  </a>
+</li>
+<li>
+  <a href="https://github.com/lineu96">
+    <span class="fa fa-github"></span>
+     
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Primeiros Passos com <code>tidyr</code> e
+<code>dplyr</code></h1>
+<h4 class="author">Lineu Alberto Cavazani de Freitas</h4>
+
+</div>
+
+
+<hr />
+<div id="formatação-e-tratamento-de-dados" class="section level1"
+number="1">
+<h1><span class="header-section-number">1</span> Formatação e Tratamento
+de Dados</h1>
+<p>Vamos imaginar o processo de análise de um conjunto de dados, você
+precisa:</p>
+<center>
+<strong>IMPORTAR - ARRUMAR - TRANSFORMAR - VISUALIZAR - MODELAR -
+COMUNICAR</strong>
+</center>
+<center>
+<img src="img/ds.png" width=500>
+</center>
+<hr />
+<p>Cada uma delas consiste em:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Importar</strong> os dados brutos para o software de
+análise.</li>
+<li><strong>Arrumar</strong> os dados, isto é, fazer com que eles fiquem
+em um formato adequado para análise.</li>
+<li><strong>Transformar</strong> os dados, isto é, criar novas variáveis
+com base nas que foram coletadas, obter resumos numéricos das variáveis
+de interesse, etc.</li>
+<li><strong>Visualizar</strong> os dados, verificar o comportamento das
+variáveis e como elas interagem entre si fazendo uso de recursos
+gráficos. Leia o post <a
+href="https://pet-estatistica.github.io/site/download/posts/postLINEU.html">Primeiros
+Passos com ggplot2</a> e entenda mais esta etapa.</li>
+<li><strong>Modelar</strong> os dados, isto é, aplicar técnicas que vão
+além da visualização e permitam compreender os dados e aprender com
+eles.</li>
+<li><strong>Comunicar</strong> os resultados.</li>
+</ol>
+<hr />
+<p><strong>Arrumar</strong> e <strong>Transformar</strong> os dados
+podem se tornar os piores pesadelos de estatísticos, cientistas de dados
+e aficcionados por análise. Estas duas etapas são de suma importância
+para uma análise consistente de dados e podem ser consideradas as mais
+demoradas, trabalhosas e desgastantes tarefas no processo de análise.
+Além disso são, sem dúvidas, etapas extremamente negligenciadas nos
+cursos de graduação e extremamente exigidas no mercado.</p>
+<p>Existem diversos pacotes que permitem arrumar e transformar os dados,
+mas dois em especial merecem atenção: o <a
+href="https://tidyr.tidyverse.org/">tidyr</a> e o <a
+href="https://dplyr.tidyverse.org/">dplyr</a>. Estes pacotes são 2
+componentes dos 8 pacotes básicos do <a
+href="https://www.tidyverse.org/packages/">tidyverse</a>, se você nunca
+ouviu falar de tidyverse, trata-se de uma reimplementação das principais
+funcionalidades do R em um conjunto de 8 pacotes e uma série de vários
+outros secundários construídos para trabalhar em conjunto.</p>
+<p>A vantagem de se trabalhar com o tidyverse é que toda a sintaxe e
+filosofia das diferentes etapas de análise são centralizadas e
+unificadas e, além disso, há um pacote específico para cada tarefa do
+processo de análise de dados. Um bom material para se inteirar a
+respeito do tidyverse é a série de aulas <a
+href="http://leg.ufpr.br/~walmes/cursoR/data-vis/">Manipulação e
+Visualização de Dados - A abordagem tidyverse</a> do professor <a
+href="http://www.leg.ufpr.br/~walmes/home/">Walmes M. Zeviani</a> e o
+material do <a
+href="https://pet-estatistica.github.io/site/minicurso_r_2019/">Minicurso
+R 2019</a> ofertado pelo <a
+href="https://pet-estatistica.github.io/site/">PET-Estatística
+UFPR</a>.</p>
+<p>Mas voltando ao que interessa, nosso foco neste post é apresentar o
+objetivo e principais funcionalidades do <a
+href="https://tidyr.tidyverse.org/">tidyr</a> (para arrumação) e o <a
+href="https://dplyr.tidyverse.org/">dplyr</a> (para transformação).</p>
+<hr />
+<center>
+<div>
+<p><img src="img/tidyr.png" width="140"/>
+<img src="img/dplyr.png"width="140"/></p>
+</div>
+</center>
+<hr />
+<p>Para instalação dos pacotes basta utilizar a função
+<code>install.packages()</code>, da seguinte forma:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;tidyr&#39;</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;dplyr&#39;</span>)</span></code></pre></div>
+<p>Ou ainda:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">install.packages</span>(<span class="st">&#39;tidyverse&#39;</span>)</span></code></pre></div>
+<p>Desta forma todos os pacotes pertencentes ao tidyverse serão
+instalados.</p>
+<hr />
+</div>
+<div id="tidyr" class="section level1" number="2">
+<h1><span class="header-section-number">2</span> <code>tidyr</code></h1>
+<p>Antes de dar início à exploração do tidyr vamos definir o conceito de
+dado arrumado ou tidy data. Um conjunto de dados considerado arrumado é
+aquele em que cada coluna representa uma variável, cada linha representa
+uma observação e cada célula representa o valor observado da observação
+i na variável j:</p>
+<center>
+<img src="img/tidy-data.png" width=1000>
+</center>
+<p>Isto posto, vamos às principais funcionalidades do
+<code>tidyr</code>. Este pacote dispõe de funções para:</p>
+<ul>
+<li>Empilhar/desempilhar os dados.</li>
+<li>Separar/unir caracteres.</li>
+<li>Tratar dados ausenstes (NA’s).</li>
+<li>etc.</li>
+</ul>
+<hr />
+<div id="empilhardesempilhar-os-dados" class="section level2"
+number="2.1">
+<h2><span class="header-section-number">2.1</span> Empilhar/desempilhar
+os dados</h2>
+<p>Considere o seguinte conjunto de dados:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>td <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">id =</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">50</span>),</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">jan =</span> <span class="fu">rnorm</span>(<span class="dv">50</span>, <span class="fu">rpois</span>(<span class="dv">1</span>,(<span class="fu">runif</span>(<span class="dv">1</span>)<span class="sc">*</span><span class="dv">10</span>))),</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">fev =</span> <span class="fu">rnorm</span>(<span class="dv">50</span>, <span class="fu">rpois</span>(<span class="dv">1</span>,(<span class="fu">runif</span>(<span class="dv">1</span>)<span class="sc">*</span><span class="dv">10</span>))),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">mar =</span> <span class="fu">rnorm</span>(<span class="dv">50</span>, <span class="fu">rpois</span>(<span class="dv">1</span>,(<span class="fu">runif</span>(<span class="dv">1</span>)<span class="sc">*</span><span class="dv">10</span>))),</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">abr =</span> <span class="fu">rnorm</span>(<span class="dv">50</span>, <span class="fu">rpois</span>(<span class="dv">1</span>,(<span class="fu">runif</span>(<span class="dv">1</span>)<span class="sc">*</span><span class="dv">10</span>))),</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">mai =</span> <span class="fu">rnorm</span>(<span class="dv">50</span>, <span class="fu">rpois</span>(<span class="dv">1</span>,(<span class="fu">runif</span>(<span class="dv">1</span>)<span class="sc">*</span><span class="dv">10</span>))),</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">jun =</span> <span class="fu">rnorm</span>(<span class="dv">50</span>, <span class="fu">rpois</span>(<span class="dv">1</span>,(<span class="fu">runif</span>(<span class="dv">1</span>)<span class="sc">*</span><span class="dv">10</span>))),</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">jul =</span> <span class="fu">rnorm</span>(<span class="dv">50</span>, <span class="fu">rpois</span>(<span class="dv">1</span>,(<span class="fu">runif</span>(<span class="dv">1</span>)<span class="sc">*</span><span class="dv">10</span>))),</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">ago =</span> <span class="fu">rnorm</span>(<span class="dv">50</span>, <span class="fu">rpois</span>(<span class="dv">1</span>,(<span class="fu">runif</span>(<span class="dv">1</span>)<span class="sc">*</span><span class="dv">10</span>))),</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">set =</span> <span class="fu">rnorm</span>(<span class="dv">50</span>, <span class="fu">rpois</span>(<span class="dv">1</span>,(<span class="fu">runif</span>(<span class="dv">1</span>)<span class="sc">*</span><span class="dv">10</span>))),</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">out =</span> <span class="fu">rnorm</span>(<span class="dv">50</span>, <span class="fu">rpois</span>(<span class="dv">1</span>,(<span class="fu">runif</span>(<span class="dv">1</span>)<span class="sc">*</span><span class="dv">10</span>))),</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">nov =</span> <span class="fu">rnorm</span>(<span class="dv">50</span>, <span class="fu">rpois</span>(<span class="dv">1</span>,(<span class="fu">runif</span>(<span class="dv">1</span>)<span class="sc">*</span><span class="dv">10</span>))),</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">dez =</span> <span class="fu">rnorm</span>(<span class="dv">50</span>, <span class="fu">rpois</span>(<span class="dv">1</span>,(<span class="fu">runif</span>(<span class="dv">1</span>)<span class="sc">*</span><span class="dv">10</span>))))</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>td</span></code></pre></div>
+<pre><code>## # A tibble: 50 × 13
+##       id   jan    fev    mar   abr   mai   jun   jul    ago   set   out   nov
+##    &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1     1  1.86  0.869  2.83   7.52 11.0  2.51  10.8   2.52   4.50  8.27  14.3
+##  2     2  1.30 -0.129  0.434  7.88  8.38 2.16  10.3   0.541  5.54  8.63  14.6
+##  3     3  3.35  1.16   1.63   5.71  9.81 0.890  9.95  1.75   5.93  8.39  14.9
+##  4     4  5.58  1.30   0.736  6.01  9.25 0.719 10.0  -1.12   5.82  7.52  15.3
+##  5     5  3.41  1.57   0.929  3.92  9.18 1.37  10.9  -0.172  7.23  8.11  15.4
+##  6     6  5.68  1.43   0.728  6.40  9.67 0.359 10.1   0.503  4.62  7.81  15.0
+##  7     7  4.87  1.64   2.49   6.82 10.7  1.48  10.4  -1.37   4.16  6.67  14.7
+##  8     8  4.13  1.97   0.693  4.67  8.82 2.06  10.7  -0.178  4.96  6.89  14.9
+##  9     9  1.75  1.97  -0.162  6.88  8.84 1.36  11.4  -0.417  5.12  7.88  12.8
+## 10    10  4.72  1.34   3.62   5.84  8.90 2.72  10.6  -0.725  3.82  7.47  17.0
+## # … with 40 more rows, and 1 more variable: dez &lt;dbl&gt;</code></pre>
+<p>Use a imaginação, finja que cada valor de id é uma pessoa, cada
+coluna um mês e cada célula o resultado de um exame qualquer. Este é o
+típico caso de dados no formato largo, ou seja, a linha representa uma
+observação mas note que as colunas representam a mesma variável: o mês.
+No formato tido como ideal deveria haver uma coluna id e uma coluna mês
+e não 12 colunas de uma mesma variável.</p>
+<p>Para forçar os dados a assumirem o formato longo basta utilizar a
+função <code>gather</code>, nesta função você fornece o nome de duas
+colunas a serem criadas: a key e a value. Além disso deve-se informar as
+colunas que se tem interesse em empilhar.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>td_gat <span class="ot">&lt;-</span> td <span class="sc">%&gt;%</span> <span class="fu">gather</span>(<span class="at">key =</span> <span class="st">&#39;mes&#39;</span>, <span class="at">value =</span> <span class="st">&#39;valor&#39;</span>, jan<span class="sc">:</span>dez)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>td_gat</span></code></pre></div>
+<pre><code>## # A tibble: 600 × 3
+##       id mes   valor
+##    &lt;int&gt; &lt;chr&gt; &lt;dbl&gt;
+##  1     1 jan    1.86
+##  2     2 jan    1.30
+##  3     3 jan    3.35
+##  4     4 jan    5.58
+##  5     5 jan    3.41
+##  6     6 jan    5.68
+##  7     7 jan    4.87
+##  8     8 jan    4.13
+##  9     9 jan    1.75
+## 10    10 jan    4.72
+## # … with 590 more rows</code></pre>
+<p>Para fazer com que os dados retornem ao formato original basta
+utilizar a função <code>spread</code>:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>td_gat <span class="sc">%&gt;%</span> <span class="fu">spread</span>(<span class="at">key=</span>mes, <span class="at">value =</span> valor)</span></code></pre></div>
+<pre><code>## # A tibble: 50 × 13
+##       id   abr    ago    dez    fev   jan   jul   jun   mai    mar   nov   out
+##    &lt;int&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1     1  7.52  2.52   1.05   0.869  1.86 10.8  2.51  11.0   2.83   14.3  8.27
+##  2     2  7.88  0.541  0.747 -0.129  1.30 10.3  2.16   8.38  0.434  14.6  8.63
+##  3     3  5.71  1.75   2.72   1.16   3.35  9.95 0.890  9.81  1.63   14.9  8.39
+##  4     4  6.01 -1.12   2.06   1.30   5.58 10.0  0.719  9.25  0.736  15.3  7.52
+##  5     5  3.92 -0.172  1.49   1.57   3.41 10.9  1.37   9.18  0.929  15.4  8.11
+##  6     6  6.40  0.503  2.75   1.43   5.68 10.1  0.359  9.67  0.728  15.0  7.81
+##  7     7  6.82 -1.37  -0.214  1.64   4.87 10.4  1.48  10.7   2.49   14.7  6.67
+##  8     8  4.67 -0.178  1.72   1.97   4.13 10.7  2.06   8.82  0.693  14.9  6.89
+##  9     9  6.88 -0.417 -0.283  1.97   1.75 11.4  1.36   8.84 -0.162  12.8  7.88
+## 10    10  5.84 -0.725  2.08   1.34   4.72 10.6  2.72   8.90  3.62   17.0  7.47
+## # … with 40 more rows, and 1 more variable: set &lt;dbl&gt;</code></pre>
+<p>Mas note a diferença, o fragmento anterior fez com que as colunas
+fossem colocadas em ordem alfabética.</p>
+<hr />
+</div>
+<div id="separarunir-caracteres." class="section level2" number="2.2">
+<h2><span class="header-section-number">2.2</span> Separar/unir
+caracteres.</h2>
+<p>Imagine um exemplo simples, você coletou dia, mês e ano de nascimento
+de uma série de indivíduos mas cada um destes valores está em uma célula
+e você quer que isto fique numa única célula. Este é um caso clássico em
+que a função <code>unite</code> se mostra útil:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>dma <span class="ot">&lt;-</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(<span class="at">dia =</span> <span class="fu">c</span>(<span class="fu">rpois</span>(<span class="dv">10</span>, <span class="dv">10</span>)),       </span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>       <span class="at">mes =</span> <span class="fu">c</span>(<span class="dv">01</span>,<span class="dv">02</span>,<span class="dv">03</span>,<span class="dv">04</span>,<span class="dv">05</span>,<span class="dv">06</span>,<span class="dv">07</span>,<span class="dv">08</span>,<span class="dv">09</span>,<span class="dv">10</span>),</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>       <span class="at">ano =</span> <span class="fu">c</span>(<span class="dv">1990</span>,<span class="dv">1994</span>,<span class="dv">1996</span>,<span class="dv">2001</span>,<span class="dv">2005</span>,<span class="dv">1955</span>,<span class="dv">1998</span>,<span class="dv">1999</span>,<span class="dv">2005</span>,<span class="dv">1955</span>))</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>dma</span></code></pre></div>
+<pre><code>## # A tibble: 10 × 3
+##      dia   mes   ano
+##    &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1     8     1  1990
+##  2    11     2  1994
+##  3     9     3  1996
+##  4     6     4  2001
+##  5     9     5  2005
+##  6     7     6  1955
+##  7     9     7  1998
+##  8     5     8  1999
+##  9    10     9  2005
+## 10    10    10  1955</code></pre>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>dma2 <span class="ot">&lt;-</span> dma <span class="sc">%&gt;%</span> <span class="fu">unite</span>(<span class="at">col =</span> <span class="st">&#39;data&#39;</span>, <span class="at">sep =</span> <span class="st">&#39;-&#39;</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>dma2</span></code></pre></div>
+<pre><code>## # A tibble: 10 × 1
+##    data      
+##    &lt;chr&gt;     
+##  1 8-1-1990  
+##  2 11-2-1994 
+##  3 9-3-1996  
+##  4 6-4-2001  
+##  5 9-5-2005  
+##  6 7-6-1955  
+##  7 9-7-1998  
+##  8 5-8-1999  
+##  9 10-9-2005 
+## 10 10-10-1955</code></pre>
+<p>Para fazer com que os dados retomem o formato original uma candidata
+é a função <code>separate</code>:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>dma2 <span class="sc">%&gt;%</span> <span class="fu">separate</span>(<span class="at">col =</span> <span class="st">&#39;data&#39;</span>,</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">into =</span> <span class="fu">c</span>(<span class="st">&#39;dia&#39;</span>, <span class="st">&#39;mes&#39;</span>, <span class="st">&#39;ano&#39;</span>),</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">sep =</span> <span class="st">&#39;-&#39;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 10 × 3
+##    dia   mes   ano  
+##    &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;
+##  1 8     1     1990 
+##  2 11    2     1994 
+##  3 9     3     1996 
+##  4 6     4     2001 
+##  5 9     5     2005 
+##  6 7     6     1955 
+##  7 9     7     1998 
+##  8 5     8     1999 
+##  9 10    9     2005 
+## 10 10    10    1955</code></pre>
+<p>Já que entramos no assunto datas, recomendo a leitura do post <a
+href="https://pet-estatistica.github.io/site/download/posts/postNILTON.html">Resolvendo
+problemas com datas e horas utilizando o pacote Lubridate</a></p>
+<hr />
+</div>
+<div id="tratar-dados-ausenstes-nas." class="section level2"
+number="2.3">
+<h2><span class="header-section-number">2.3</span> Tratar dados
+ausenstes (NA’s).</h2>
+<p>Dados ausentes são um assunto delicado. Há quem defenda a completa
+retirada de linhas com valores faltantes, há também quem defenda que
+estes valores tem algo a contar e devem permanecer na base. Fato é que
+em determinados métodos não há a possibilidade de trabalhar com uma base
+em que haja dados ausentes, como é o caso de modelos de regressão.
+Nestes casos nos restam algumas alternativas: retirar linhas em que haja
+algum NA, substituir NA’s por alguma outra quantidade ou utilizar algum
+método de imputação.</p>
+<p>Não é o foco deste post discutir qual é mais recomendada ou coerente,
+mas sim mostrar as possibilidades com o <code>tidyr</code>, e são elas:
+retirar as linhas com NA com a função <code>drop_na()</code> ou
+substituir os NA’s oir algum outro valor com a função
+<code>replace_na()</code>:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>NAS <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">col1 =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>,</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">col2 =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="cn">NA</span>,<span class="dv">4</span>,<span class="cn">NA</span>,<span class="dv">6</span>,<span class="dv">7</span>,<span class="cn">NA</span>,<span class="dv">9</span>,<span class="dv">10</span>))</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>NAS</span></code></pre></div>
+<pre><code>## # A tibble: 10 × 2
+##     col1  col2
+##    &lt;int&gt; &lt;dbl&gt;
+##  1     1     1
+##  2     2     2
+##  3     3    NA
+##  4     4     4
+##  5     5    NA
+##  6     6     6
+##  7     7     7
+##  8     8    NA
+##  9     9     9
+## 10    10    10</code></pre>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>NAS <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>()</span></code></pre></div>
+<pre><code>## # A tibble: 7 × 2
+##    col1  col2
+##   &lt;int&gt; &lt;dbl&gt;
+## 1     1     1
+## 2     2     2
+## 3     4     4
+## 4     6     6
+## 5     7     7
+## 6     9     9
+## 7    10    10</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>NAS <span class="sc">%&gt;%</span> <span class="fu">replace_na</span>(<span class="fu">list</span>(<span class="at">col2 =</span> <span class="dv">100000</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 10 × 2
+##     col1   col2
+##    &lt;int&gt;  &lt;dbl&gt;
+##  1     1      1
+##  2     2      2
+##  3     3 100000
+##  4     4      4
+##  5     5 100000
+##  6     6      6
+##  7     7      7
+##  8     8 100000
+##  9     9      9
+## 10    10     10</code></pre>
+<hr />
+</div>
+</div>
+<div id="dplyr" class="section level1" number="3">
+<h1><span class="header-section-number">3</span> dplyr</h1>
+<p>O <code>dplyr</code> dispõe de funções para transformação do conjunto
+de dados. Isso envolve: filtrar linhas, selecionar colunas, ordenar a
+base, criar/modificar colunas, agrupar a base, sumarizar e cruzar
+diferentes bases. Considere o conjunto de dados <code>swiss</code>.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>swiss<span class="sc">$</span>names <span class="ot">&lt;-</span> <span class="fu">rownames</span>(swiss)</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> swiss <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dados)</span></code></pre></div>
+<pre><code>##    Fertility      Agriculture     Examination      Education    
+##  Min.   :35.00   Min.   : 1.20   Min.   : 3.00   Min.   : 1.00  
+##  1st Qu.:64.70   1st Qu.:35.90   1st Qu.:12.00   1st Qu.: 6.00  
+##  Median :70.40   Median :54.10   Median :16.00   Median : 8.00  
+##  Mean   :70.14   Mean   :50.66   Mean   :16.49   Mean   :10.98  
+##  3rd Qu.:78.45   3rd Qu.:67.65   3rd Qu.:22.00   3rd Qu.:12.00  
+##  Max.   :92.50   Max.   :89.70   Max.   :37.00   Max.   :53.00  
+##     Catholic       Infant.Mortality    names          
+##  Min.   :  2.150   Min.   :10.80    Length:47         
+##  1st Qu.:  5.195   1st Qu.:18.15    Class :character  
+##  Median : 15.140   Median :20.00    Mode  :character  
+##  Mean   : 41.144   Mean   :19.94                      
+##  3rd Qu.: 93.125   3rd Qu.:21.70                      
+##  Max.   :100.000   Max.   :26.60</code></pre>
+<hr />
+<div id="filtrar-linhas" class="section level2" number="3.1">
+<h2><span class="header-section-number">3.1</span> Filtrar linhas</h2>
+<p>A função filter funciona como um filtro de uma planilha Excel, você
+escolhe uma condição e o output serão apenas aquelas linhas em que a
+condição seja satisfeita. Seguem alguns exemplos utilizando a função
+<code>filter()</code>:</p>
+<ul>
+<li>Filtro comum: filtre as linhas em que apenas esta condição seja
+satisfeita.</li>
+<li>Filtro com condição &amp;: filtre as linhas em que duas condições
+que sejam satisfeitas simultâneamente.</li>
+<li>Filtro com condição |: filtre as linhas em que uma das duas
+condições seja atendida.</li>
+<li>Filtro com condição %in%: filtre as linhas em que haja observações
+iguais às pertencenter ao vetor.</li>
+</ul>
+<hr />
+<div id="filtro-comum" class="section level3" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Filtro comum</h3>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>filtro1 <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Fertility <span class="sc">&gt;</span> <span class="dv">70</span>)</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(dados) <span class="sc">-</span> <span class="fu">nrow</span>(filtro1)</span></code></pre></div>
+<pre><code>## [1] 23</code></pre>
+<p>23 observações não atendem à restrição.</p>
+<hr />
+</div>
+<div id="filtro-com-condição" class="section level3" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> Filtro com condição
+&amp;</h3>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>filtro2 <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Examination <span class="sc">&gt;</span> <span class="dv">12</span> <span class="sc">&amp;</span> Agriculture <span class="sc">&gt;</span> <span class="dv">30</span>)</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(dados) <span class="sc">-</span> <span class="fu">nrow</span>(filtro2)</span></code></pre></div>
+<pre><code>## [1] 24</code></pre>
+<p>24 observações não atendem à restrição.</p>
+<hr />
+</div>
+<div id="filtro-com-condição-1" class="section level3" number="3.1.3">
+<h3><span class="header-section-number">3.1.3</span> Filtro com condição
+|</h3>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>filtro3 <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> <span class="fu">filter</span>(Examination <span class="sc">&gt;</span> <span class="dv">12</span> <span class="sc">|</span> Agriculture <span class="sc">&lt;</span> <span class="dv">30</span>)</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(dados) <span class="sc">-</span> <span class="fu">nrow</span>(filtro3)</span></code></pre></div>
+<pre><code>## [1] 14</code></pre>
+<p>14 observações não atendem à restrição.</p>
+<hr />
+</div>
+<div id="filtro-com-condição-in" class="section level3" number="3.1.4">
+<h3><span class="header-section-number">3.1.4</span> Filtro com condição
+%in%</h3>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>filtro4 <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> <span class="fu">filter</span>(names <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">&quot;Courtelary&quot;</span>, <span class="st">&quot;Delemont&quot;</span>, <span class="st">&quot;Franches-Mnt&quot;</span>))</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="fu">nrow</span>(dados) <span class="sc">-</span> <span class="fu">nrow</span>(filtro4)</span></code></pre></div>
+<pre><code>## [1] 44</code></pre>
+<p>44 observações não atendem à restrição.</p>
+<hr />
+</div>
+</div>
+<div id="selecionar-colunas" class="section level2" number="3.2">
+<h2><span class="header-section-number">3.2</span> Selecionar
+colunas</h2>
+<p>A função <code>select()</code> é utilizada para selecionar colunas de
+um conjunto de dados, com esta função é possível:</p>
+<ul>
+<li>Selecionar colunas pelo nome.</li>
+<li>Selecionar colunas que iniciam com alguma letra ou sílaba
+específica.</li>
+<li>Selecionar intervalos entre colunas.</li>
+<li>Selecionar todas com exceção de algumas.</li>
+</ul>
+<hr />
+<div id="selecionando-colunas-pelo-nome" class="section level3"
+number="3.2.1">
+<h3><span class="header-section-number">3.2.1</span> Selecionando
+colunas pelo nome</h3>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>select1 <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> <span class="fu">select</span>(names, Education)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(dados)</span></code></pre></div>
+<pre><code>## [1] &quot;Fertility&quot;        &quot;Agriculture&quot;      &quot;Examination&quot;      &quot;Education&quot;       
+## [5] &quot;Catholic&quot;         &quot;Infant.Mortality&quot; &quot;names&quot;</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(select1)</span></code></pre></div>
+<pre><code>## [1] &quot;names&quot;     &quot;Education&quot;</code></pre>
+<hr />
+</div>
+<div id="selecionando-colunas-que-iniciam-com" class="section level3"
+number="3.2.2">
+<h3><span class="header-section-number">3.2.2</span> Selecionando
+colunas que iniciam com</h3>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>select2 <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="fu">starts_with</span>(<span class="st">&quot;e&quot;</span>))</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(dados)</span></code></pre></div>
+<pre><code>## [1] &quot;Fertility&quot;        &quot;Agriculture&quot;      &quot;Examination&quot;      &quot;Education&quot;       
+## [5] &quot;Catholic&quot;         &quot;Infant.Mortality&quot; &quot;names&quot;</code></pre>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(select2)</span></code></pre></div>
+<pre><code>## [1] &quot;Examination&quot; &quot;Education&quot;</code></pre>
+<hr />
+</div>
+<div id="selecionando-intervalo-de-colunas" class="section level3"
+number="3.2.3">
+<h3><span class="header-section-number">3.2.3</span> Selecionando
+intervalo de colunas</h3>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>select3 <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> <span class="fu">select</span>(Fertility, Agriculture<span class="sc">:</span>Education)</span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(dados)</span></code></pre></div>
+<pre><code>## [1] &quot;Fertility&quot;        &quot;Agriculture&quot;      &quot;Examination&quot;      &quot;Education&quot;       
+## [5] &quot;Catholic&quot;         &quot;Infant.Mortality&quot; &quot;names&quot;</code></pre>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(select3)</span></code></pre></div>
+<pre><code>## [1] &quot;Fertility&quot;   &quot;Agriculture&quot; &quot;Examination&quot; &quot;Education&quot;</code></pre>
+<hr />
+</div>
+<div id="selecionando-todas-as-colunas-exceto" class="section level3"
+number="3.2.4">
+<h3><span class="header-section-number">3.2.4</span> Selecionando todas
+as colunas exceto</h3>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>select4 <span class="ot">&lt;-</span> dados <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>Fertility, <span class="sc">-</span>names)</span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(dados)</span></code></pre></div>
+<pre><code>## [1] &quot;Fertility&quot;        &quot;Agriculture&quot;      &quot;Examination&quot;      &quot;Education&quot;       
+## [5] &quot;Catholic&quot;         &quot;Infant.Mortality&quot; &quot;names&quot;</code></pre>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(select4)</span></code></pre></div>
+<pre><code>## [1] &quot;Agriculture&quot;      &quot;Examination&quot;      &quot;Education&quot;        &quot;Catholic&quot;        
+## [5] &quot;Infant.Mortality&quot;</code></pre>
+<hr />
+</div>
+</div>
+<div id="ordenar-a-base" class="section level2" number="3.3">
+<h2><span class="header-section-number">3.3</span> Ordenar a base</h2>
+<p>Para ordenação com base em uma coluna o <code>dplyr</code> dispõe da
+função <code>arrange()</code>:</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">letras =</span> letters,</span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">valor =</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(letters)))</span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>df</span></code></pre></div>
+<pre><code>## # A tibble: 26 × 2
+##    letras   valor
+##    &lt;chr&gt;    &lt;dbl&gt;
+##  1 a      -0.630 
+##  2 b       0.608 
+##  3 c      -0.944 
+##  4 d      -1.16  
+##  5 e      -0.0887
+##  6 f       0.541 
+##  7 g      -1.47  
+##  8 h       1.41  
+##  9 i      -1.33  
+## 10 j      -1.32  
+## # … with 16 more rows</code></pre>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span>  <span class="fu">arrange</span>(<span class="fu">desc</span>(letras))</span></code></pre></div>
+<pre><code>## # A tibble: 26 × 2
+##    letras  valor
+##    &lt;chr&gt;   &lt;dbl&gt;
+##  1 z      -0.245
+##  2 y      -0.841
+##  3 x      -0.729
+##  4 w       0.416
+##  5 v      -1.92 
+##  6 u      -0.299
+##  7 t       0.522
+##  8 s       0.599
+##  9 r      -0.395
+## 10 q      -0.146
+## # … with 16 more rows</code></pre>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> <span class="fu">arrange</span>(letras)</span></code></pre></div>
+<pre><code>## # A tibble: 26 × 2
+##    letras   valor
+##    &lt;chr&gt;    &lt;dbl&gt;
+##  1 a      -0.630 
+##  2 b       0.608 
+##  3 c      -0.944 
+##  4 d      -1.16  
+##  5 e      -0.0887
+##  6 f       0.541 
+##  7 g      -1.47  
+##  8 h       1.41  
+##  9 i      -1.33  
+## 10 j      -1.32  
+## # … with 16 more rows</code></pre>
+<hr />
+</div>
+<div id="criarmodificar-colunas" class="section level2" number="3.4">
+<h2><span class="header-section-number">3.4</span> Criar/modificar
+colunas</h2>
+<p>A criação e modificação de colunas pode ser feita com a função
+<code>mutate()</code>, com ela é possível:</p>
+<ul>
+<li>Sobrescreve uma coluna.</li>
+<li>Criar uma nova coluna.</li>
+<li>Criar diversas colunas no mesmo mutate.</li>
+</ul>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">col1 =</span> <span class="fu">rnorm</span>(<span class="dv">50</span>), <span class="at">col2 =</span> <span class="fu">rpois</span>(<span class="dv">50</span>, <span class="dv">1</span>))</span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>df2</span></code></pre></div>
+<pre><code>## # A tibble: 50 × 2
+##      col1  col2
+##     &lt;dbl&gt; &lt;int&gt;
+##  1  0.588     1
+##  2 -1.14      2
+##  3  0.940     0
+##  4 -1.13      0
+##  5 -0.283     1
+##  6  0.493     0
+##  7 -1.64      0
+##  8  0.724     0
+##  9  1.79      2
+## 10 -0.646     1
+## # … with 40 more rows</code></pre>
+<hr />
+<div id="sobrescreve-uma-coluna" class="section level3" number="3.4.1">
+<h3><span class="header-section-number">3.4.1</span> Sobrescreve uma
+coluna</h3>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>mutate1 <span class="ot">&lt;-</span> df2 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">col2 =</span> letters[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>] <span class="sc">%&gt;%</span> <span class="fu">rep</span>(<span class="dv">5</span>))</span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>df2[,<span class="dv">2</span>]</span></code></pre></div>
+<pre><code>## # A tibble: 50 × 1
+##     col2
+##    &lt;int&gt;
+##  1     1
+##  2     2
+##  3     0
+##  4     0
+##  5     1
+##  6     0
+##  7     0
+##  8     0
+##  9     2
+## 10     1
+## # … with 40 more rows</code></pre>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>mutate1[,<span class="dv">2</span>]</span></code></pre></div>
+<pre><code>## # A tibble: 50 × 1
+##    col2 
+##    &lt;chr&gt;
+##  1 a    
+##  2 b    
+##  3 c    
+##  4 d    
+##  5 e    
+##  6 f    
+##  7 g    
+##  8 h    
+##  9 i    
+## 10 j    
+## # … with 40 more rows</code></pre>
+<hr />
+</div>
+<div id="criar-uma-nova-coluna" class="section level3" number="3.4.2">
+<h3><span class="header-section-number">3.4.2</span> Criar uma nova
+coluna</h3>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>mutate2 <span class="ot">&lt;-</span> df2 <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">col3 =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(df2))</span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>df2</span></code></pre></div>
+<pre><code>## # A tibble: 50 × 2
+##      col1  col2
+##     &lt;dbl&gt; &lt;int&gt;
+##  1  0.588     1
+##  2 -1.14      2
+##  3  0.940     0
+##  4 -1.13      0
+##  5 -0.283     1
+##  6  0.493     0
+##  7 -1.64      0
+##  8  0.724     0
+##  9  1.79      2
+## 10 -0.646     1
+## # … with 40 more rows</code></pre>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a>mutate2</span></code></pre></div>
+<pre><code>## # A tibble: 50 × 3
+##      col1  col2  col3
+##     &lt;dbl&gt; &lt;int&gt; &lt;int&gt;
+##  1  0.588     1     1
+##  2 -1.14      2     2
+##  3  0.940     0     3
+##  4 -1.13      0     4
+##  5 -0.283     1     5
+##  6  0.493     0     6
+##  7 -1.64      0     7
+##  8  0.724     0     8
+##  9  1.79      2     9
+## 10 -0.646     1    10
+## # … with 40 more rows</code></pre>
+<hr />
+</div>
+<div id="criar-diversas-colunas-no-mesmo-mutate." class="section level3"
+number="3.4.3">
+<h3><span class="header-section-number">3.4.3</span> Criar diversas
+colunas no mesmo mutate.</h3>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true" tabindex="-1"></a>mutate3 <span class="ot">&lt;-</span> df2 <span class="sc">%&gt;%</span>  <span class="fu">mutate</span>( <span class="at">col3 =</span> col1 <span class="sc">+</span> col2,</span>
+<span id="cb63-2"><a href="#cb63-2" aria-hidden="true" tabindex="-1"></a>                            <span class="at">col4 =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(df2),</span>
+<span id="cb63-3"><a href="#cb63-3" aria-hidden="true" tabindex="-1"></a>                            <span class="at">col5 =</span> col1 <span class="sc">*</span> <span class="dv">10</span>)</span>
+<span id="cb63-4"><a href="#cb63-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-5"><a href="#cb63-5" aria-hidden="true" tabindex="-1"></a>df2</span></code></pre></div>
+<pre><code>## # A tibble: 50 × 2
+##      col1  col2
+##     &lt;dbl&gt; &lt;int&gt;
+##  1  0.588     1
+##  2 -1.14      2
+##  3  0.940     0
+##  4 -1.13      0
+##  5 -0.283     1
+##  6  0.493     0
+##  7 -1.64      0
+##  8  0.724     0
+##  9  1.79      2
+## 10 -0.646     1
+## # … with 40 more rows</code></pre>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true" tabindex="-1"></a>mutate3</span></code></pre></div>
+<pre><code>## # A tibble: 50 × 5
+##      col1  col2   col3  col4   col5
+##     &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt;
+##  1  0.588     1  1.59      1   5.88
+##  2 -1.14      2  0.858     2 -11.4 
+##  3  0.940     0  0.940     3   9.40
+##  4 -1.13      0 -1.13      4 -11.3 
+##  5 -0.283     1  0.717     5  -2.83
+##  6  0.493     0  0.493     6   4.93
+##  7 -1.64      0 -1.64      7 -16.4 
+##  8  0.724     0  0.724     8   7.24
+##  9  1.79      2  3.79      9  17.9 
+## 10 -0.646     1  0.354    10  -6.46
+## # … with 40 more rows</code></pre>
+<hr />
+</div>
+</div>
+<div id="agrupar-e-sumarizar" class="section level2" number="3.5">
+<h2><span class="header-section-number">3.5</span> Agrupar e
+sumarizar</h2>
+<p>A função <code>summarise()</code> é a responsável por gerar resumos
+numéricos, o output desta função é um tibble em que você nomeia a coluna
+e especifica que medida será printada. Considere novamente o conjunto de
+dados <code>swiss</code>:</p>
+<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true" tabindex="-1"></a>swiss<span class="sc">$</span>names <span class="ot">&lt;-</span> <span class="fu">rownames</span>(swiss)</span>
+<span id="cb67-2"><a href="#cb67-2" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> swiss <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span>
+<span id="cb67-3"><a href="#cb67-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(dados)</span></code></pre></div>
+<pre><code>##    Fertility      Agriculture     Examination      Education    
+##  Min.   :35.00   Min.   : 1.20   Min.   : 3.00   Min.   : 1.00  
+##  1st Qu.:64.70   1st Qu.:35.90   1st Qu.:12.00   1st Qu.: 6.00  
+##  Median :70.40   Median :54.10   Median :16.00   Median : 8.00  
+##  Mean   :70.14   Mean   :50.66   Mean   :16.49   Mean   :10.98  
+##  3rd Qu.:78.45   3rd Qu.:67.65   3rd Qu.:22.00   3rd Qu.:12.00  
+##  Max.   :92.50   Max.   :89.70   Max.   :37.00   Max.   :53.00  
+##     Catholic       Infant.Mortality    names          
+##  Min.   :  2.150   Min.   :10.80    Length:47         
+##  1st Qu.:  5.195   1st Qu.:18.15    Class :character  
+##  Median : 15.140   Median :20.00    Mode  :character  
+##  Mean   : 41.144   Mean   :19.94                      
+##  3rd Qu.: 93.125   3rd Qu.:21.70                      
+##  Max.   :100.000   Max.   :26.60</code></pre>
+<hr />
+<div id="obtendo-uma-única-medida-descritiva" class="section level3"
+number="3.5.1">
+<h3><span class="header-section-number">3.5.1</span> Obtendo uma única
+medida descritiva</h3>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb69-2"><a href="#cb69-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_fert =</span> <span class="fu">mean</span>(Fertility))</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 1
+##   mean_fert
+##       &lt;dbl&gt;
+## 1      70.1</code></pre>
+<hr />
+</div>
+<div id="obtendo-mais-de-uma-medida-descritiva" class="section level3"
+number="3.5.2">
+<h3><span class="header-section-number">3.5.2</span> Obtendo mais de uma
+medida descritiva</h3>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb71-2"><a href="#cb71-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb71-3"><a href="#cb71-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">media_fert =</span> <span class="fu">mean</span>(Fertility),</span>
+<span id="cb71-4"><a href="#cb71-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mediana_fert =</span> <span class="fu">median</span>(Fertility))</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 2
+##   media_fert mediana_fert
+##        &lt;dbl&gt;        &lt;dbl&gt;
+## 1       70.1         70.4</code></pre>
+<hr />
+</div>
+<div id="obtendo-medidas-descritivas-de-diferentes-variáveis"
+class="section level3" number="3.5.3">
+<h3><span class="header-section-number">3.5.3</span> Obtendo medidas
+descritivas de diferentes variáveis</h3>
+<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb73-2"><a href="#cb73-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb73-3"><a href="#cb73-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">media_fert =</span> <span class="fu">mean</span>(Fertility),</span>
+<span id="cb73-4"><a href="#cb73-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">mediana_agr =</span> <span class="fu">median</span>(Agriculture),</span>
+<span id="cb73-5"><a href="#cb73-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd_cat =</span> <span class="fu">sd</span>(Catholic))</span></code></pre></div>
+<pre><code>## # A tibble: 1 × 3
+##   media_fert mediana_agr sd_cat
+##        &lt;dbl&gt;       &lt;dbl&gt;  &lt;dbl&gt;
+## 1       70.1        54.1   41.7</code></pre>
+<hr />
+</div>
+<div id="obtendo-medidas-descritivas-por-grupo" class="section level3"
+number="3.5.4">
+<h3><span class="header-section-number">3.5.4</span> Obtendo medidas
+descritivas por grupo</h3>
+<p>O <code>dplyr</code> possui a função <code>group_by()</code>. Esta
+função, quando combinada ao <code>summarise()</code> permite obter
+medidas descritivas por grupo. Imagine que você tem no seu conjunto de
+dados uma variável categórica de 3 níveis e uma variável contínua,
+combinando <code>group_by()</code> e <code>summarise()</code> você pode
+obter a média da variável contínua para cada nível da variável
+categórica sem muito esforço, veja:</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true" tabindex="-1"></a>dados <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">fator =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&#39;a&#39;</span>,<span class="st">&#39;b&#39;</span>,<span class="st">&#39;c&#39;</span>), <span class="dv">5</span>),</span>
+<span id="cb75-2"><a href="#cb75-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">num =</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(fator), <span class="dv">15</span>,<span class="dv">5</span>))</span>
+<span id="cb75-3"><a href="#cb75-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb75-4"><a href="#cb75-4" aria-hidden="true" tabindex="-1"></a>dados</span></code></pre></div>
+<pre><code>## # A tibble: 15 × 2
+##    fator     num
+##    &lt;chr&gt;   &lt;dbl&gt;
+##  1 a      6.90  
+##  2 b     13.1   
+##  3 c     19.1   
+##  4 a     14.4   
+##  5 b     17.6   
+##  6 c     17.2   
+##  7 a      8.95  
+##  8 b      4.01  
+##  9 c     18.1   
+## 10 a      8.60  
+## 11 b     18.7   
+## 12 c     -0.0939
+## 13 a     16.1   
+## 14 b     26.2   
+## 15 c     13.6</code></pre>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span></span>
+<span id="cb77-2"><a href="#cb77-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(fator) <span class="sc">%&gt;%</span></span>
+<span id="cb77-3"><a href="#cb77-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">media_grupo =</span> <span class="fu">mean</span>(num))</span></code></pre></div>
+<pre><code>## # A tibble: 3 × 2
+##   fator media_grupo
+##   &lt;chr&gt;       &lt;dbl&gt;
+## 1 a            11.0
+## 2 b            15.9
+## 3 c            13.6</code></pre>
+<hr />
+</div>
+</div>
+<div id="amostrar" class="section level2" number="3.6">
+<h2><span class="header-section-number">3.6</span> Amostrar</h2>
+<p>Em alguns casos, para aplicação de métodos específicos, pode ser que
+seja interesse trabalhar com amostras dos dados. O <code>dplyr</code>
+possui duas funções para reamostragem: a <code>sample_n()</code> e a
+<code>sample_frac()</code>. Na primeira você informa quantas linhas do
+conjunto de dados original você deseja e na segunda a proporção de
+linhas do conjunto de dados original:</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true" tabindex="-1"></a>dados </span></code></pre></div>
+<pre><code>## # A tibble: 15 × 2
+##    fator     num
+##    &lt;chr&gt;   &lt;dbl&gt;
+##  1 a      6.90  
+##  2 b     13.1   
+##  3 c     19.1   
+##  4 a     14.4   
+##  5 b     17.6   
+##  6 c     17.2   
+##  7 a      8.95  
+##  8 b      4.01  
+##  9 c     18.1   
+## 10 a      8.60  
+## 11 b     18.7   
+## 12 c     -0.0939
+## 13 a     16.1   
+## 14 b     26.2   
+## 15 c     13.6</code></pre>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span> <span class="fu">sample_n</span>(<span class="dv">5</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 5 × 2
+##   fator   num
+##   &lt;chr&gt; &lt;dbl&gt;
+## 1 b      4.01
+## 2 b     17.6 
+## 3 a     14.4 
+## 4 b     26.2 
+## 5 c     17.2</code></pre>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true" tabindex="-1"></a>dados <span class="sc">%&gt;%</span> <span class="fu">sample_frac</span>(<span class="fl">0.1</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 2 × 2
+##   fator     num
+##   &lt;chr&gt;   &lt;dbl&gt;
+## 1 a      8.95  
+## 2 c     -0.0939</code></pre>
+<hr />
+</div>
+<div id="cruzamentos" class="section level2" number="3.7">
+<h2><span class="header-section-number">3.7</span> Cruzamentos</h2>
+<p>As funções do tipo join servem para cruzar bases por uma coluna
+chave, as possíveis alternativas de cruzamento são:</p>
+<ul>
+<li><code>inner_join()</code>.</li>
+<li><code>full_join()</code>.</li>
+<li><code>left_join()</code>.</li>
+<li><code>right_join()</code>.</li>
+</ul>
+<p>A <code>inner_join()</code> gera um novo conjunto de dados apenas
+para os casos em que a chave é verificada nos dois arquivos.</p>
+<p>A <code>full_join()</code> une todas as linhas e todas as colunas,
+independente da chave ocorrer nos dois arquivos. Nos casos em que não há
+correspondência é gerado NA.</p>
+<p>Na <code>left_join()</code> todas as chaves do primeiro arquivo são
+mantidas e acrescenta-se valores nos casos em que há compatibilidade de
+chave. As chaves que são observadas apenas no segundo conjunto de dados
+são descartados.</p>
+<p>No <code>right_join()</code> todas as chaves do segundo arquivo são
+mantidas e acrescenta-se valores nos casos em que há compatibilidade de
+chave. As chaves que são observadas apenas no primeiro conjunto de dados
+são descartados.</p>
+<center>
+<img src="img/join.png" width=400>
+</center>
+<p>Para aplicação, considere os 2 seguintes conjuntos de dados:</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>tb1 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">codigo =</span> <span class="fu">c</span>(<span class="st">&quot;001&quot;</span>, <span class="st">&quot;002&quot;</span>, <span class="st">&quot;003&quot;</span>, <span class="st">&quot;004&quot;</span>, <span class="st">&quot;005&quot;</span>,</span>
+<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a>                         <span class="st">&quot;006&quot;</span>, <span class="st">&quot;007&quot;</span>, <span class="st">&quot;008&quot;</span>, <span class="st">&quot;009&quot;</span>, <span class="st">&quot;010&quot;</span>),</span>
+<span id="cb85-3"><a href="#cb85-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">ocorrencia =</span> <span class="fu">rbinom</span>(<span class="dv">10</span>,<span class="dv">1</span>, <span class="at">prob =</span> <span class="fl">0.5</span>),</span>
+<span id="cb85-4"><a href="#cb85-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">n =</span> <span class="fu">rpois</span>(<span class="dv">10</span>,<span class="dv">2</span>))</span>
+<span id="cb85-5"><a href="#cb85-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-6"><a href="#cb85-6" aria-hidden="true" tabindex="-1"></a>tb2 <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">code =</span> <span class="fu">c</span>(<span class="st">&quot;001&quot;</span>, <span class="st">&quot;022&quot;</span>, <span class="st">&quot;003&quot;</span>, <span class="st">&quot;004&quot;</span>, <span class="st">&quot;005&quot;</span>,</span>
+<span id="cb85-7"><a href="#cb85-7" aria-hidden="true" tabindex="-1"></a>                       <span class="st">&quot;000&quot;</span>, <span class="st">&quot;007&quot;</span>, <span class="st">&quot;018&quot;</span>, <span class="st">&quot;079&quot;</span>, <span class="st">&quot;010&quot;</span>),</span>
+<span id="cb85-8"><a href="#cb85-8" aria-hidden="true" tabindex="-1"></a>              <span class="at">year =</span> <span class="fu">c</span>(<span class="dv">2010</span>, <span class="dv">2011</span>, <span class="dv">2015</span>, <span class="dv">1999</span>, <span class="dv">2000</span>,</span>
+<span id="cb85-9"><a href="#cb85-9" aria-hidden="true" tabindex="-1"></a>                       <span class="dv">1996</span>, <span class="dv">1998</span>, <span class="dv">1955</span>, <span class="dv">1971</span>, <span class="dv">2001</span>))</span>
+<span id="cb85-10"><a href="#cb85-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb85-11"><a href="#cb85-11" aria-hidden="true" tabindex="-1"></a>tb1</span></code></pre></div>
+<pre><code>## # A tibble: 10 × 3
+##    codigo ocorrencia     n
+##    &lt;chr&gt;       &lt;int&gt; &lt;int&gt;
+##  1 001             1     4
+##  2 002             1     2
+##  3 003             0     7
+##  4 004             1     3
+##  5 005             0     3
+##  6 006             1     3
+##  7 007             0     2
+##  8 008             1     3
+##  9 009             1     1
+## 10 010             0     2</code></pre>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>tb2</span></code></pre></div>
+<pre><code>## # A tibble: 10 × 2
+##    code   year
+##    &lt;chr&gt; &lt;dbl&gt;
+##  1 001    2010
+##  2 022    2011
+##  3 003    2015
+##  4 004    1999
+##  5 005    2000
+##  6 000    1996
+##  7 007    1998
+##  8 018    1955
+##  9 079    1971
+## 10 010    2001</code></pre>
+<hr />
+<div id="inner_join" class="section level3" number="3.7.1">
+<h3><span class="header-section-number">3.7.1</span> inner_join()</h3>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true" tabindex="-1"></a><span class="fu">inner_join</span>(tb1, tb2, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;codigo&quot;</span><span class="ot">=</span><span class="st">&quot;code&quot;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 6 × 4
+##   codigo ocorrencia     n  year
+##   &lt;chr&gt;       &lt;int&gt; &lt;int&gt; &lt;dbl&gt;
+## 1 001             1     4  2010
+## 2 003             0     7  2015
+## 3 004             1     3  1999
+## 4 005             0     3  2000
+## 5 007             0     2  1998
+## 6 010             0     2  2001</code></pre>
+<hr />
+</div>
+<div id="full_join" class="section level3" number="3.7.2">
+<h3><span class="header-section-number">3.7.2</span> full_join()</h3>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true" tabindex="-1"></a><span class="fu">full_join</span>(tb1, tb2, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;codigo&quot;</span><span class="ot">=</span><span class="st">&quot;code&quot;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 14 × 4
+##    codigo ocorrencia     n  year
+##    &lt;chr&gt;       &lt;int&gt; &lt;int&gt; &lt;dbl&gt;
+##  1 001             1     4  2010
+##  2 002             1     2    NA
+##  3 003             0     7  2015
+##  4 004             1     3  1999
+##  5 005             0     3  2000
+##  6 006             1     3    NA
+##  7 007             0     2  1998
+##  8 008             1     3    NA
+##  9 009             1     1    NA
+## 10 010             0     2  2001
+## 11 022            NA    NA  2011
+## 12 000            NA    NA  1996
+## 13 018            NA    NA  1955
+## 14 079            NA    NA  1971</code></pre>
+<hr />
+</div>
+<div id="right_join" class="section level3" number="3.7.3">
+<h3><span class="header-section-number">3.7.3</span> right_join()</h3>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="fu">right_join</span>(tb1, tb2, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;codigo&quot;</span><span class="ot">=</span><span class="st">&quot;code&quot;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 10 × 4
+##    codigo ocorrencia     n  year
+##    &lt;chr&gt;       &lt;int&gt; &lt;int&gt; &lt;dbl&gt;
+##  1 001             1     4  2010
+##  2 003             0     7  2015
+##  3 004             1     3  1999
+##  4 005             0     3  2000
+##  5 007             0     2  1998
+##  6 010             0     2  2001
+##  7 022            NA    NA  2011
+##  8 000            NA    NA  1996
+##  9 018            NA    NA  1955
+## 10 079            NA    NA  1971</code></pre>
+<hr />
+</div>
+<div id="left_join" class="section level3" number="3.7.4">
+<h3><span class="header-section-number">3.7.4</span> left_join()</h3>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="fu">left_join</span>(tb1, tb2, <span class="at">by =</span> <span class="fu">c</span>(<span class="st">&quot;codigo&quot;</span><span class="ot">=</span><span class="st">&quot;code&quot;</span>))</span></code></pre></div>
+<pre><code>## # A tibble: 10 × 4
+##    codigo ocorrencia     n  year
+##    &lt;chr&gt;       &lt;int&gt; &lt;int&gt; &lt;dbl&gt;
+##  1 001             1     4  2010
+##  2 002             1     2    NA
+##  3 003             0     7  2015
+##  4 004             1     3  1999
+##  5 005             0     3  2000
+##  6 006             1     3    NA
+##  7 007             0     2  1998
+##  8 008             1     3    NA
+##  9 009             1     1    NA
+## 10 010             0     2  2001</code></pre>
+<hr />
+</div>
+</div>
+</div>
+<div id="considerações-finais" class="section level1" number="4">
+<h1><span class="header-section-number">4</span> Considerações
+finais</h1>
+<p>Neste post exploramos dois pacotes <code>tidyverse</code>: o
+<code>tidyr</code> e o <code>dplyr</code>. Estes pacotes são
+extremamente úteis dada a necessidade de ferramentas para manipulação
+consistente de dados, a principal vantagem destes pacotes é a sintaxe e
+nome das funções. De forma geral as estas ferramentas possuem funções e
+argumentos com nomes consideravelmente mais intuitivos que pacotes
+antigos e já consolidados dentre usuários de R e se mostram com
+importantes funcionalidades a serem estudados por aqueles interessados
+por análise de dados bem como os demais pacotes pertencentes ao
+<code>tidyverse</code>.</p>
+<hr />
+</div>
+<div id="veja-também" class="section level1" number="5">
+<h1><span class="header-section-number">5</span> Veja também</h1>
+<ol style="list-style-type: decimal">
+<li><p><a href="https://www.tidyverse.org/packages/">Página do
+tidyverse</a></p></li>
+<li><p><a href="http://leg.ufpr.br/~walmes/cursoR/data-vis/">Manipulação
+e Visualização de Dados - A abordagem tidyverse, do professor Walmes
+Zeviani</a></p></li>
+<li><p><a href="https://www.curso-r.com/material/manipulacao/">Material
+da Curso-R sobre manipulação de dados</a></p></li>
+<li><p><a href="https://r4ds.had.co.nz/">R for Data Science</a></p></li>
+</ol>
+<hr />
+<div class="tocify-extend-page" data-unique="tocify-extend-page"
+style="height: 0;">
+
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

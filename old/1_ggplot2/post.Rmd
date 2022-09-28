@@ -1,0 +1,468 @@
+---
+title: Primeiros Passos com `ggplot2`
+author: Lineu Alberto Cavazani de Freitas
+output:
+  html_document:                    # Classe de documento.
+    toc: true                       # Exibir sum?rio.
+    toc_depth: 2                    # Profundidade do sum?rio.
+    toc_float:                      # Sum?rio flutuante na borda.
+      collapsed: true
+      smooth_scroll: true
+    number_sections: true           # Se??es numeradas.
+    theme: cosmo
+    #default,cerulean,journal,flatly,readable,spacelab,
+    #united,cosmo,lumen,paper,sandstone,simplex,yeti
+    
+    highlight: espresso
+    #default, tango, pygments, kate, monochrome, espresso, zenburn, haddock, and textmate
+    #css: styles.css                 # Caminho para arquivo CSS.
+    fig_width: 7                    # Lagura das figuras.
+    fig_height: 6                   # Altura das figuras.
+    fig_caption: true               # Exibica??o de legenda.
+    fig_align: 'center'
+#    code_folding: hide              # Esconder/exibir bloco de c?digo.
+    keep_md: true                   # Manter o arquivo md.
+    #template: quarterly_report.html # Caminho para o template.  
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, cache = TRUE)
+```
+
+---
+
+# Visualização de Dados
+
+Parte primordial de qualquer análise estatística é chamada análise descritiva ou exploratória. Tal etapa consiste basicamente de resumos numéricos e análises gráficas baseadas em conjuntos de dados.
+
+Trata-se de uma etapa de extrema importância e deve preceder qualquer análise mais sofisticada como ajuste de modelos de regressão, por exemplo. 
+Além disso, a análise exploratória não requer elevada proficiência em tópicos avançados de estatística para aplicação e interpretação dos resultados, fazendo com que visualização de dados caracterize uma técnica simples, com grande apelo visual e extremamente informativa quanto ao conjunto de dados.
+
+No R há a possibilidade de gerar gráficos sem a utilização de pacotes e há também pacotes específicos e especializados em visualização, dentre os quais destacam-se os famosos `lattice` e `ggplot2`.
+
+Este post tem como foco explorar as principais e mais simples formas de visualização de dados utilizando o `ggplot2` bem como algumas customizações simples como alteração de cores, temas, etc.
+
+<center>
+<img src="ggplot2.png" width=140 height=140>
+</center>
+
+---
+
+# `ggplot2`
+
+O `ggplot2` é um pacote para geração de gráficos baseado no livro **'The Grammar of Graphics'**. Nele, o usuário fornece os dados, especifica como mapear as variáveis e que tipo de visualização usar. Após isso basta customizar cores, formas e tamanho dos atributos.
+
+Para instalação do pacote basta utilizar a função `install.packages()`, da seguinte forma:
+
+```{r, eval=FALSE}
+install.packages('ggplot2')
+```
+
+---
+
+## Função `ggplot()`
+
+A principal função do pacote é a `ggplot()`. Esta função cria um objeto ggplot no qual devem ser declarados os dados e especificar o conjunto de características que vão compor o gráfico.
+
+Leia a documentação da função com o comando:
+
+```{r, eval=FALSE}
+?ggplot()
+```
+
+O primeiro passo para abrir uma janela gráfica no `ggplot2` é especificar o data frame no argumento data e, dentro do aes() informar qual variável ficará no eixo x e qual ficará no eixo y. Além disso pode-se acrescentar outras variáveis ao aes() que serão representadas por cores, formas ou tamanhos diferentes.
+
+```{r, eval=FALSE}
+ggplot(data = NULL, mapping = aes())
+```
+
+Apenas o comando acima, declarando corretamente os dados e as variáveis, uma janela gráfica em branco é aberta e , para acrescentar pontos, linhas e formas ao gráfico são utilizados os 'geoms' do ggplot. Os geoms disponíveis do pacote são:
+
+```{r, echo=FALSE}
+library(ggplot2)
+
+geoms <- ls("package:ggplot2")
+
+ind <- grep('geom_', geoms)
+
+geoms[ind[-47]]
+```
+
+A sintaxe para geração de um gráfico de dispersão simples é:
+
+```{r, eval=FALSE}
+ggplot(data = dados,           # conjunto de dados
+       mapping = aes(x = x,    # variável x
+                     y = y)) + # variável y
+  geom_point()                 # especifica que x e y serão representados como pares ordenados 
+```
+
+Pode-se acrescentar mais de um geom ao mesmo gráfico apenas com o acréscimo do sinal de mais (+).
+
+Para verificar os tipos de gráficos mais comuns em análise exploratória e como customizar gráficos com o `ggplot2`, vamos analisar um conjunto de dados simulados.
+
+---
+
+# Gerando um conjunto de dados
+
+Vamos gerar e analisar um conjunto de dados comum, composto por duas variáveis numéricas e uma variável categórica:
+
+```{r}
+
+v1 = rnorm(1500, 20, 5)
+v2 = rnorm(1500, 20, 5 )
+
+x = v1*2
+y = v1+v2
+
+z = as.factor(rep(c('a','b'), 750))
+
+df <- data.frame(x=x,y=y,z=z)
+
+head(df)
+```
+
+---
+
+## Análise com o R base
+
+Uma análise básica do conjunto de dados gerado utilizando as funções base do R:
+
+```{r, fig.height=4, fig.width=10}
+par(mfrow = c(1,3))
+hist(df$y,probability = T, main = 'Histograma',col=3)
+box()
+lines(density(df$y), lwd=3, col=4)
+plot(y~z, df, col = c(3,4), main='Boxplot')
+plot(y~x,df, col=c(3,4), main='Gráfico de Dispersão')
+abline(lm(y~x, df), lwd=3)
+```
+
+---
+
+# Análise com `ggplot2`
+
+Como o `ggplot2` é um pacote, é necessário carregá-lo:
+
+```{r}
+library(ggplot2)
+```
+
+---
+
+## Densidade
+
+Um gráfico de densidade simples pode ser feito com os seguintes comandos:
+
+```{r, fig.height=5, fig.width=8}
+ggplot(data=df, mapping = aes(x=y))+
+  geom_density()
+```
+
+Dentro de um geom é possível acrescentar elementos extra para customização dos gráficos, por exemplo: o argumento `col` altera a cor do contorno, o argumento `fill` altera a cor de preenchimento e o `alpha` controla o aspecto de transparência do gráfico. Pode-se também acrescentar um `geom_rug()`:
+
+```{r, fig.height=5, fig.width=8}
+ggplot(data=df, mapping = aes(x=y)) +
+  geom_density(col=4,
+               fill='#088A85',
+               alpha=0.3) + 
+  geom_rug()
+```
+
+---
+
+## Histograma
+
+Para gerar um histograma, basta acrescentar à função ggplot um `geom_histogram()`:
+
+```{r, fig.height=5, fig.width=8, warning=FALSE, message=FALSE}
+ggplot(data=df, mapping = aes(x=x)) + 
+  geom_histogram()
+```
+
+E pode-se incluir as mesmas customizações utilizadas no gráfico de densidade, inclusive ao `geom_rug`:
+
+```{r, fig.height=5, fig.width=8, warning=FALSE, message=FALSE}
+ggplot(data=df, mapping = aes(x=y)) + 
+  geom_histogram(col=6, fill='#00FFFF', alpha=0.3) + 
+  geom_rug(col=2, alpha=0.5)
+```
+
+---
+
+## Boxplot
+
+Ainda com foco nas análises univariadas, uma alternativa ao gráfico de densidade e ao histograma é o boxplot:
+
+```{r, fig.height=5, fig.width=4, fig.align='center'}
+ggplot(data=df, mapping = aes(y=y)) + 
+  geom_boxplot(col=3, fill=3, alpha=0.4)
+```
+
+---
+
+## Gráficos de dispersão
+
+Para duas variáveis numéricas o gráfico de maior importância é o de dispersão, que pode ser gerado utilizando o `geom_point()`:
+
+```{r, fig.height=5, fig.width=8}
+ggplot(data=df, mapping = aes(x=x,y=y)) + 
+  geom_point()
+```
+
+Pode-se ainda gerar um gráfico utilizando todas as variáveis do nosso data frame, com uma variável numérica no eixo x, outra no eixo y e com diferentes cores representando a variável categórica, tais atributos são definidos dentro do `aes()`. Há a possibilidade de adicionar linhas de tendência ao gráfico com o uso do `geom_smooth()`:
+
+```{r, fig.height=5, fig.width=8}
+ggplot(data=df, mapping = aes(x=x,y=y,col=z)) +
+  geom_point(alpha=0.8) + 
+  geom_smooth(method = 'lm', col=1) + 
+  geom_rug(alpha=0.1)
+```
+
+---
+
+## Boxplot para níveis de um fator
+
+Para verificar o comportamento de uma variável categórica nos valores observados de uma variável numérica o boxplot se mostra uma boa alternativa, a diferença do caso já mencionado é que aqui temos uma variável x (fator) e uma variável y (numérica):
+
+```{r, fig.height=5, fig.width=8}
+ggplot(data=df, mapping = aes(x=z,y=y,col=z)) + 
+  geom_boxplot()
+```
+
+E algumas customizações:
+
+```{r, fig.height=5, fig.width=8}
+ggplot(data=df, mapping = aes(x=z,y=y,col=z)) +
+  geom_boxplot(col=c(3,4), fill=c(3,4), alpha=0.3)
+```
+
+---
+
+## Eixos e título
+
+A atribuição de eixos e títulos faz-se com uso do `ggtitle()`, `xlab()` e `ylab()`:
+
+```{r, fig.height=5, fig.width=8}
+ggplot(data=df, mapping = aes(x=x,y=y))+
+  geom_point(alpha=0.5)+
+  ggtitle('Título')+
+  xlab('Eixo x')+
+  ylab('Eixo y')
+```
+
+---
+
+## Facet
+
+O `facet_wrap()` permite gerar gráficos em que faz-se a distinção entre os níveis de um fator:
+
+```{r, fig.height=5, fig.width=10, warning=FALSE, message=FALSE}
+ggplot(data=df, mapping = aes(x=x,y=y,col=z)) + 
+  geom_point(alpha=0.5)+
+  geom_smooth(se=F, lwd=1.5, col=1) + 
+  facet_wrap(~z)
+```
+
+---
+
+# Outros tipos de gráfico
+
+Além dos gráficos já mencionados, alguns outros são comumente utilizados em análises exploratórias:
+
+## Gráfico de barras
+
+O gráfico de barras é utilizado quado há interesse em observar frequências. Vamos considerar o seguinte conjunto de dados: 
+
+```{r, fig.height=5, fig.width=10, warning=FALSE, message=FALSE}
+dados <- data.frame(fator = factor(c("a","b","c","d","e"), 
+                                        levels=c("a","b","c","d","e")), 
+                          contagem = c(125, 170, 124, 128, 163))
+
+dados
+```
+
+No `ggplot2`, um gráfico de barras pode ser gerado da seguinte forma:
+
+```{r, fig.height=5, fig.width=10, warning=FALSE, message=FALSE}
+ggplot(data=dados, aes(x=fator, y=contagem)) + 
+  geom_bar(stat="identity", 
+         fill=5, 
+         col=4, 
+         alpha=0.2,
+            lwd=1)+
+  geom_text(aes(label=contagem), 
+            vjust=1.6, 
+            color=1, 
+            size=3.5)+
+  ylab("") +
+  xlab("")
+
+```
+
+## Gráfico de setores
+
+Outra alternativa para visualização de frequências é o gráfico de setores, para representação deste gráfico vamos considerar um novo data frame:
+
+```{r, fig.height=5, fig.width=10, warning=FALSE, message=FALSE}
+dados <- data.frame(fator = factor(c("a","b","c","d","e","f"), 
+                                        levels=c("a","b","c","d","e", "f")), 
+                          contagem = c(125, 170, 124, 128, 163, 500))
+```
+
+E o gráfico de setores pode ser gerado com os comandos:
+
+```{r, fig.height=5, fig.width=10, warning=FALSE, message=FALSE}
+ggplot(dados, aes(x="", y=contagem, fill=fator))+
+  geom_bar(width = 1, stat = "identity", col='white', alpha=0.5)+ 
+  coord_polar("y", start=0)
+```
+
+
+## Violino
+
+Para confecção deste gráfico utiliza-se o `geom_violin()`, o gráfico consiste no espelhamento do gráfico de densidade da variável; pode ser utilizado para explorar uma variável numérica ou para verificar o efeito de níveis de um fator sobre uma variável numérica:
+
+```{r, fig.height=5, fig.width=7, warning=FALSE, message=FALSE}
+dados <- data.frame(x = rep(c('a','b','c','d'),50),
+                    y = rgamma(200, 12,3))
+
+ggplot(data=dados, mapping = aes(x=x,
+                                 y=y,
+                                 fill=x,
+                                 col=x))+
+  geom_violin(alpha=0.5, lwd=2)+
+  theme(legend.position = 'none')
+
+```
+
+
+---
+
+## Gráficos em painel
+
+O clássico `par(mfrow = c())` não é aplicável a gráficos `ggplot2`. Porém é possível gerar gráficos em painel através da função `grid.arrange` do pacote `gridExtra`:
+
+```{r, fig.height=6, fig.width=8, warning=FALSE, message=FALSE}
+library(gridExtra)
+```
+
+```{r, fig.height=4, fig.width=8, warning=FALSE, message=FALSE}
+
+g1 <- ggplot(data=df, mapping = aes(x=y))+
+  geom_density(col=2, fill=2, alpha=0.3)
+
+g2 <- ggplot(data=df, mapping = aes(x=y))+
+  geom_histogram(col=6, fill=6, alpha=0.3)
+
+g3 <- ggplot(data=df, mapping = aes(x=x,y=y,col=z))+
+  geom_point(alpha=0.5)+
+  geom_smooth(col=1)
+
+g4 <- ggplot(data=df, mapping = aes(x=z,y=y,col=z)) +
+  geom_boxplot(col=c(3,4),
+               fill=c(3,4),
+               alpha=0.3)
+```
+
+```{r, fig.height=6, fig.width=8, warning=FALSE, message=FALSE}
+grid.arrange(g1,g2,g3,g4,nrow=2,ncol=2)
+```
+
+---
+
+# Temas
+
+O pacote tem uma variedade de temas:
+
+```{r}
+library(ggplot2)
+temas <- ls("package:ggplot2")
+ind <- grep('theme_', temas)
+temas[ind[]]
+```
+
+Para utlizá-los, basta acrescentar `+ theme_(nome do tema)`. Alguns são extremamente parecidos. Confira os principais:
+
+---
+
+```{r, fig.height=10, fig.width=10, echo=FALSE}
+
+tema <- data.frame(x=1,y=1)
+
+graf <- ggplot(data=tema, mapping = aes(x=x,y=y))
+
+a <- graf+theme_bw()+ggtitle('bw')+xlab('')+ylab('')
+b <- graf+theme_classic()+ggtitle('classic')+xlab('')+ylab('')
+c <- graf+theme_dark()+ggtitle('dark')+xlab('')+ylab('')
+d <- graf+theme_gray()+ggtitle('gray')+xlab('')+ylab('')
+e <- graf+theme_light()+ggtitle('light')+xlab('')+ylab('')
+f <- graf+theme_minimal()+ggtitle('minimal')+xlab('')+ylab('')
+g <- graf+theme_test()+ggtitle('test')+xlab('')+ylab('')
+h <- graf+theme_void()+ggtitle('void')+xlab('')+ylab('')
+
+grid.arrange(a,b,c,d,e,f,g,h, nrow=3,ncol=3)
+```
+
+---
+
+# Gráficos interativos
+
+Com o pacote `plotly` é possível converter gráficos gerados com `ggplot2` em gráficos interativos com o uso da função `ggplotly`:
+
+## Exemplo 1
+
+```{r, fig.height=5, fig.width=8, warning=FALSE, message=FALSE}
+ind <- sample(nrow(diamonds),4500,replace = F)
+
+graf <- 
+  ggplot(data=diamonds[ind,], aes(x=price,y=carat,col=clarity)) +
+  geom_point(alpha=0.5) + 
+  geom_rug(alpha=0.1, col='#F781F3')+
+  geom_smooth(method='lm',se=F, col=1)+
+  geom_smooth(method='loess',se=F, 
+              col='#FF0040',
+              linetype = 'longdash')
+
+library(plotly)
+
+ggplotly(graf)
+```
+
+## Exemplo 2
+
+```{r, fig.height=8, fig.width=8, warning=FALSE, message=FALSE}
+graf2 <- 
+  ggplot(data=diamonds[ind,], aes(x=table,y=depth,col=cut))+
+  geom_point(alpha=0.3)+
+  geom_smooth(method='lm',se=F, col=1)+
+  facet_wrap(~clarity)+
+  theme_light()+
+  theme(legend.position = 'none')
+
+ggplotly(graf2)
+```
+
+---
+
+# Considerações finais
+
+O intuito deste material foi explorar a confecção e customização de gráficos fazendo uso do `ggplot2`. O aprendizado e a própria customização dos gráficos pode ser de certa forma trabalhosa devido às diferenças de sintaxe dos gráficos produzidos no R e às inúmeras possíveis combinações de geoms e parâmetros que controlam a estética dos gráficos. Contudo, o pacote permite a geração de gráficos que, no geral, são mais atrativos visualmente que aqueles gerados utilizando o R base e que, com uso do `plotly`, são facilmente convertidos para gráficos interativos.
+
+---
+
+# Veja também
+
+1. [The Grammar of Graphics](https://www.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448/ref=as_li_ss_tl?ie=UTF8&qid=1477928463&sr=8-1&keywords=the+grammar+of+graphics&linkCode=sl1&tag=ggplot2-20&linkId=f0130e557161b83fbe97ba0e9175c431)
+
+2. [Create Elegant Data Visualisations Using the Grammar of Graphics - ggplot2](https://ggplot2.tidyverse.org/)
+
+3. [GitHub tidyverse/ggplot2](https://github.com/tidyverse/ggplot2)
+
+4. [Top 50 ggplot2 Visualizations](http://r-statistics.co/Top50-Ggplot2-Visualizations-MasterList-R-Code.html)
+
+5. [Stackoverflow questions tagged ggplot2](https://stackoverflow.com/tags/ggplot2)
+
+---
+
+<div class="tocify-extend-page" data-unique="tocify-extend-page" style="height: 0;"></div>
